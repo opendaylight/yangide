@@ -1,0 +1,6 @@
+**/target/
+/.settings/
+.classpath
+bin/
+libs/
+.options

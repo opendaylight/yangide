@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2014, 2015 Cisco Systems, Inc. and others.  All rights reserved.
+     
+     This program and the accompanying materials are made available under the
+     terms of the Eclipse Public License v1.0 which accompanies this distribution,
+     and is available at http://www.eclipse.org/legal/epl-v10.html
+     
+ -->
+<feature
+      id="com.cisco.yangide.feature"
+      label="%featureName"
+      version="1.1.1.qualifier"
+      provider-name="%providerName"
+      plugin="com.cisco.yangide.ui">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.graphiti.feature" version="0.11.0.v20140528-0646" match="greaterOrEqual"/>
+      <import feature="org.eclipse.emf.compare" version="3.0.0.201406111328" match="greaterOrEqual"/>
+      <import feature="org.eclipse.emf" version="2.10.0.v20140519-0339"/>
+   </requires>
+
+   <plugin
+         id="com.cisco.yangide.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.cisco.yangide.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.cisco.yangide.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.cisco.yangide.ext.refactoring"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.cisco.yangide.ext.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.cisco.yangide.ext.model.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

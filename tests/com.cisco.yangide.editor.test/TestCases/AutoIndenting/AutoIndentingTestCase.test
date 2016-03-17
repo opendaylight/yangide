@@ -1,0 +1,65 @@
+--- RCPTT testcase ---
+Format-Version: 1.0
+Contexts: _CN8X4Av8EeSdascDp4ftXw,_aHkbQAwDEeSdascDp4ftXw
+Element-Name: AutoIndentingTestCase
+Element-Type: testcase
+Element-Version: 3.0
+External-Reference: 
+Id: _LA_SIAwNEeSdascDp4ftXw
+Runtime-Version: 1.5.0.201406151150
+Save-Time: 7/28/14 12:59 PM
+Testcase-Type: ecl
+Verifications: _ox3R0A46EeS2F7KvdfPBCg
+
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac
+Content-Type: text/ecl
+Entry-Name: .content
+
+with [get-editor "opendaylight-flow-statistics.yang" | get-text-viewer] {
+    set-caret-pos 1 38
+    key-type Enter
+    key-type Down
+    key-type Right
+    key-type "M1+ARROW_RIGHT"
+    key-type Enter
+    key-type Down -times 4
+    key-type End
+    key-type Enter
+    key-type Down -times 9
+    key-type End
+    key-type Enter
+    key-type Down
+    key-type End
+    key-type Enter
+    key-type Up
+    key-type Right -times 8
+    key-type Enter
+    set-caret-pos 28 67
+    key-type Enter
+    key-type Down -times 2
+    key-type Right -times 5
+    key-type Enter
+    key-type Down
+    key-type "M2+HOME"
+    select-range 33 6 33 5
+    key-type "M2+HOME"
+    select-range 33 6 33 1
+    key-type Del
+    key-type Down
+    type-text "}"
+    key-type Enter
+    key-type Down -times 2
+    key-type End
+    key-type Left
+    key-type "M2+ARROW_DOWN" -times 4
+    key-type Del
+    type-text "{"
+    key-type Enter
+    type-text ";"
+    key-type Enter
+    key-type Down -times 15
+    key-type Up
+    key-type Home
+    key-type Enter
+}
+------=_.content-0a7243a0-75d3-3d5f-9791-539de0e5b7ac--
