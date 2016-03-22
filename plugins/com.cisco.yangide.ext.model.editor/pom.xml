@@ -12,7 +12,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.cisco.yangide</groupId>
+    <groupId>org.opendaylight.yangide</groupId>
     <artifactId>com.cisco.yangide.parent</artifactId>
     <version>1.1.1-SNAPSHOT</version>
     <relativePath>../..</relativePath>
