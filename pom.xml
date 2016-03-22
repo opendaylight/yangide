@@ -123,7 +123,7 @@
         <configuration>
           <target>
             <artifact>
-              <groupId>com.cisco.yangide</groupId>
+              <groupId>org.opendaylight.yangide</groupId>
               <artifactId>com.cisco.yangide.target-platform</artifactId>
               <version>1.1.1-SNAPSHOT</version>
             </artifact>
