@@ -4,10 +4,12 @@
 	<groupId>yang-test</groupId>
 	<artifactId>yang-module1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+<!-- 
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
+	 -->
 	<dependencies>
 		<dependency>
 			<groupId>org.opendaylight.mdsal</groupId>
@@ -49,7 +51,7 @@
 			<plugin>
 				<groupId>org.opendaylight.yangtools</groupId>
 				<artifactId>yang-maven-plugin</artifactId>
-				<version>0.6.2-Helium</version>
+				<version>0.8.0-Beryllium</version>
 				<executions>
 					<execution>
 						<id>generate-sources</id>

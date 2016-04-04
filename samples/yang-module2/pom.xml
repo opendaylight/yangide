@@ -43,7 +43,7 @@
       <plugin>
         <groupId>org.opendaylight.yangtools</groupId>
         <artifactId>yang-maven-plugin</artifactId>
-        <version>0.6.2-Helium</version>
+        <version>0.8.0-Beryllium</version>
         <executions>
           <execution>
             <id>generate-sources</id>
