@@ -218,7 +218,7 @@ public class YangProjectWizard extends MavenProjectWizard {
         model.getProperties().put("maven.compiler.target", "1.8");
 
         Dependency dependency2 = new Dependency();
-        dependency2.setGroupId("org.opendaylight.yangtools");
+        dependency2.setGroupId("org.opendaylight.mdsal");
         dependency2.setArtifactId("yang-binding");
         dependency2.setVersion(yangVersion);
         dependency2.setType("jar");

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2014, 2015 Cisco Systems, Inc. and others.  All rights reserved.
+     
+     This program and the accompanying materials are made available under the
+     terms of the Eclipse Public License v1.0 which accompanies this distribution,
+     and is available at http://www.eclipse.org/legal/epl-v10.html
+     
+ -->
+<!--                                                                                -->
+<!-- This program and the accompanying materials are made available under the       -->
+<!-- terms of the Eclipse Public License v1.0 which accompanies this distribution,  -->
+<!-- and is available at http://www.eclipse.org/legal/epl-v10.html                  -->
+<!-- ============================================================================== -->
+<plugin>
+    <extension point="org.eclipse.core.contenttype.contentTypes">
+        <content-type 
+            id="com.cisco.yangide.core.yangFile" 
+            name="YANG File" 
+            base-type="org.eclipse.core.runtime.text"
+            priority="high"/>
+        <file-association content-type="yangFile" file-extensions="yang"/>
+    </extension>
+    
+   <extension point="org.eclipse.core.resources.markers"
+         id="problem"
+         name="YANG Problem">
+      <persistent value="true"/>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.core.resources.textmarker"/>
+   </extension>
+
+   <extension point="org.eclipse.core.resources.markers"
+         id="syntaxproblem"
+         name="YANG Syntax Problem">
+      <super type="org.eclipse.core.resources.textmarker"/>
+   </extension>
+   
+    <extension
+      point="org.eclipse.ui.editors.markerAnnotationSpecification">
+      
+        <specification
+            annotationType="com.cisco.yangide.core.error"
+            symbolicIcon="error"
+            includeOnPreferencePage="true"
+            label="YANG Problem"
+            colorPreferenceKey="com.cisco.yangide.core.error.color"
+            colorPreferenceValue="192,255,192"
+            overviewRulerPreferenceKey="com.cisco.yangide.core.error.overview"
+            textPreferenceKey="com.cisco.yangide.core.error.text"
+            >
+        </specification>
+    </extension>
+    
+    <extension
+          point="org.eclipse.ui.editors.annotationTypes">
+        <type
+            name="com.cisco.yangide.core.error"
+            super="org.eclipse.ui.workbench.texteditor.error"
+            markerType="com.cisco.yangide.core.problem"
+            markerSeverity="2">
+        </type>
+      <type
+            name="com.cisco.yangide.core.syntax"
+            super="org.eclipse.ui.workbench.texteditor.error"
+            markerType="com.cisco.yangide.core.syntaxproblem"
+            markerSeverity="2">
+      </type>
+    </extension>
+</plugin>

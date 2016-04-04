@@ -84,15 +84,12 @@ class YangProjectWizardPage extends WizardPage {
 
         // add default values
         // TODO KOS: load version from repository
-        yangVersion.add("0.6.2-Helium");
-        yangVersion.add("0.6.1");
-        yangVersion.add("0.6.0");
-        yangVersion.add("0.5.8");
+        yangVersion.add("0.8.0-Beryllium");
         yangVersion.select(0);
 
         // default generator
         CodeGeneratorConfig config = new CodeGeneratorConfig();
-        config.setGroupId("org.opendaylight.yangtools");
+        config.setGroupId("org.opendaylight.mdsal");
         config.setArtifactId("maven-sal-api-gen-plugin");
         config.setVersion(yangVersion.getText());
         config.setGenClassName("org.opendaylight.yangtools.maven.sal.api.gen.plugin.CodeGeneratorImpl");

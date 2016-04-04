@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src/"/>
+	<classpathentry exported="true" kind="lib" path="libs/concepts-0.8.0-Beryllium.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/object-cache-api-0.8.0-Beryllium.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/util-0.8.0-Beryllium.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-model-api-0.8.0-Beryllium.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-model-export-0.8.0-Beryllium.jar" sourcepath="/home/opnfv/git/opendaylight/yangtools/yang/yang-model-export/src/main/java"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-model-util-0.8.0-Beryllium.jar" sourcepath="/home/opnfv/git/opendaylight/yangtools/yang/yang-model-util/src/main/java"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-parser-impl-0.8.0-Beryllium.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-parser-api-0.8.0-Beryllium.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-common-0.8.0-Beryllium.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/guava-18.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/antlr4-runtime-4.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jsr305-3.0.0.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
