@@ -57,36 +57,12 @@
                         <outputDirectory>./libs</outputDirectory>
                         <artifactItems>
                             <artifactItem>
-                                <groupId>org.antlr</groupId>
-                                <artifactId>antlr4-runtime</artifactId>
-                                <version>4.0</version>
-                                <type>jar</type>
-                                <overWrite>true</overWrite>
-                                <destFileName>antlr4-runtime-4.0.jar</destFileName>
-                            </artifactItem>
-                            <artifactItem>
                                 <groupId>org.mapdb</groupId>
                                 <artifactId>mapdb</artifactId>
                                 <version>1.0.4</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
                                 <destFileName>mapdb-1.0.4.jar</destFileName>
-                            </artifactItem>
-                            <artifactItem>
-                                <groupId>org.opendaylight.yangtools</groupId>
-                                <artifactId>yang-model-api</artifactId>
-                                <version>0.6.1</version>
-                                <type>jar</type>
-                                <overWrite>true</overWrite>
-                                <destFileName>yang-model-api-0.6.1.jar</destFileName>
-                            </artifactItem>
-                            <artifactItem>
-                                <groupId>org.opendaylight.yangtools</groupId>
-                                <artifactId>yang-parser-impl</artifactId>
-                                <version>0.6.1</version>
-                                <type>jar</type>
-                                <overWrite>true</overWrite>
-                                <destFileName>yang-parser-impl-0.6.1.jar</destFileName>
                             </artifactItem>
                         </artifactItems>
                     </configuration>

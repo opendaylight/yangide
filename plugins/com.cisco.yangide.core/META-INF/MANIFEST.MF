@@ -9,11 +9,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core;visibility:=reexport,
  org.eclipse.text,
  org.eclipse.core.resources,
- org.eclipse.core.filesystem
+ org.eclipse.core.filesystem,
+ com.cisco.yangide.yangparser;bundle-version="1.1.1"
 Bundle-ClassPath: .,
- libs/yang-parser-impl-0.6.1.jar,
- libs/yang-model-api-0.6.1.jar,
- libs/antlr4-runtime-4.0.jar,
  libs/mapdb-1.0.4.jar
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -21,6 +19,16 @@ Export-Package: com.cisco.yangide.core,
  com.cisco.yangide.core.buffer,
  com.cisco.yangide.core.dom,
  com.cisco.yangide.core.indexing,
- com.cisco.yangide.core.parser,
  com.cisco.yangide.core.model,
- org.antlr.v4.runtime
+ com.cisco.yangide.core.parser
+Import-Package: org.antlr.v4.runtime,
+ org.antlr.v4.runtime.atn,
+ org.antlr.v4.runtime.dfa,
+ org.antlr.v4.runtime.misc,
+ org.antlr.v4.runtime.tree,
+ org.antlr.v4.runtime.tree.pattern,
+ org.antlr.v4.runtime.tree.xpath,
+ org.opendaylight.yangtools.yang.parser.spi.meta,
+ org.opendaylight.yangtools.yang.parser.spi.source,
+ org.opendaylight.yangtools.yang.parser.stmt.reactor,
+ org.opendaylight.yangtools.yang.parser.stmt.rfc6020

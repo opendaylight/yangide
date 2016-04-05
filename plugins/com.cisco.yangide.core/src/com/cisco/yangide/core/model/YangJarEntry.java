@@ -72,7 +72,7 @@ public class YangJarEntry extends YangElement {
         return YangElementType.YANG_JAR_ENTRY;
     }
 
-    private char[] getContent() throws YangModelException {
+    public char[] getContent() throws YangModelException {
         try (JarFile file = new JarFile(getParent().getPath().toFile())) {
             ZipEntry entry = file.getEntry(path.toString());
             InputStreamReader in = new InputStreamReader(file.getInputStream(entry), "UTF-8");

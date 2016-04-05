@@ -25,7 +25,36 @@
   <artifactId>com.cisco.yangide.ui</artifactId>
   <packaging>eclipse-plugin</packaging>
   <version>1.1.1-SNAPSHOT</version>
+  <properties>
+    <yangbinding_groupid>org.opendaylight.mdsal</yangbinding_groupid>
+    <yangbinding_artifactid>yang-binding</yangbinding_artifactid>
+    <yangbinding_version>0.9.0-SNAPSHOT</yangbinding_version>
+    <mavenplugin_groupid>org.opendaylight.yangtools</mavenplugin_groupid>
+    <mavenplugin_artifactid>yang-maven-plugin</mavenplugin_artifactid>
+    <mavenplugin_version>1.0.0-SNAPSHOT</mavenplugin_version>
+    <codegen_groupid>org.opendaylight.mdsal</codegen_groupid>
+    <codegen_artifactid>maven-sal-api-gen-plugin</codegen_artifactid>
+    <codegen_version>0.9.0-SNAPSHOT</codegen_version>
+    <codegen_classname>org.opendaylight.yangtools.maven.sal.api.gen.plugin.CodeGeneratorImpl</codegen_classname>
+    <codegen_outputdir>target/generated-sources/sal</codegen_outputdir>
+    <odl_release_url>https://nexus.opendaylight.org/content/repositories/opendaylight.release/</odl_release_url>
+    <odl_snapshot_url>https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/</odl_snapshot_url>
+  </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <resources>
+        <resource>
+            <!-- The intent is to copy properties files from "resources" into the "resources" folder
+            in the resulting jar.  This works.  The doc for the "targetPath" property says that it
+            shouldn't be necessary, but this would write the file to the root without it.
+             -->
+            <directory>resources</directory>
+            <targetPath>resources</targetPath>
+            <filtering>true</filtering>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+    </resources>
   </build>
 </project>

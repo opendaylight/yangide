@@ -1,5 +1,6 @@
 /*******************************************************************************
  * Copyright (c) 2014, 2015 Cisco Systems, Inc. and others.  All rights reserved.
+ * Copyright (c) 2016 AT&T, Inc.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -62,6 +63,7 @@ import com.cisco.yangide.ext.model.editor.sync.ModelSynchronizer;
 
 import org.opendaylight.yangtools.yang.model.parser.api.YangSyntaxErrorException;
 import org.opendaylight.yangtools.yang.model.repo.api.SchemaSourceException;
+import org.opendaylight.yangtools.yang.parser.spi.source.SourceException;
 
 /**
  * @author Konstantin Zaitsev
@@ -208,11 +210,6 @@ public class YangMultiPageEditorPart extends MultiPageEditorPart implements IYan
                         "Yang source has syntax error and diagram view cannot be synchronized correctly.\n"
                                 + "Please correct syntax error first.");
             }
-//            yangSourceViewer.disableProjection();
-//            if (yangSourceViewer.getReconciler() != null) {
-//                yangSourceViewer.getReconciler().uninstall();
-//            }
-//            yangSourceViewer.disableTextListeners();
             try {
                 getEditorSite().getPage().showView("org.eclipse.ui.views.PropertySheet");
             } catch (PartInitException e) {
@@ -221,7 +218,6 @@ public class YangMultiPageEditorPart extends MultiPageEditorPart implements IYan
             yangDiagramEditor.startSourceSelectionUpdater();
         }
         else if (newPageIndex == INDEX_SOURCE_PAGE) {
-//            yangDiagramEditor.stopSourceSelectionUpdater();
             IRegion highlightRange = yangSourceEditor.getHighlightRange();
             yangSourceViewer.enableTextListeners();
             yangSourceViewer.updateDocument();
@@ -379,37 +375,10 @@ public class YangMultiPageEditorPart extends MultiPageEditorPart implements IYan
                 yinBuilder.build(baos);
                 editor.storeContentInYinView(prettyPrintXML(baos.toString()));
             }
-            catch (XMLStreamException | SchemaSourceException | IOException | YangSyntaxErrorException ex) {
+            catch (XMLStreamException | SchemaSourceException | IOException | YangSyntaxErrorException | SourceException ex) {
                 YangCorePlugin.log(ex);
                 return new Status(Status.ERROR, YangCorePlugin.PLUGIN_ID, "Failed to generate Yin file");
             }
-
-//            YangTextSchemaContextResolver   resolver    = YangTextSchemaContextResolver.create("yangide");
-//
-//            try {
-//                com.cisco.yangide.core.dom.Module   module  =
-//                        YangParserUtil.parseYangFile(this.getDocument().get().toCharArray());
-//                List<SourceIdentifier>  sourceIdentifiers   = collectSourceIds(module);
-//                if (sourceIdentifiers.size() == 1) {
-//                    resolver.registerSource(YangTextSchemaSource.delegateForByteSource(sourceIdentifiers.get(0),
-//                            ByteSource.wrap(data.yangSourceEditor.getDocument().get().getBytes())));
-//                }
-//                else {
-//                    for (SourceIdentifier id : sourceIdentifiers) {
-//                        System.out.println("id[" + id + "]");
-//                        // delegate will be a ByteArrayByteSource.
-//                        //                YangTextSchemaSource    source  = YangTextSchemaSource.delegateForByteSource(id, delegate);
-//                        //                resolver.registerSource(source);
-//                    }
-//                }
-//                ByteArrayOutputStream   baos    = new ByteArrayOutputStream();
-//                YinExportUtils.writeModuleToOutputStream(resolver.getSchemaContext().get(), new ModuleApiProxy(module), baos);
-//                data.editor.storeContentInYinView(prettyPrintXML(baos.toString()));
-//            }
-//            catch (XMLStreamException | SchemaSourceException | IOException | YangSyntaxErrorException ex) {
-//                YangCorePlugin.log(ex);
-//                return new Status(Status.ERROR, YangCorePlugin.PLUGIN_ID, "Failed to generate Yin file");
-//            }
 
             return Status.OK_STATUS;
         }
@@ -429,17 +398,5 @@ public class YangMultiPageEditorPart extends MultiPageEditorPart implements IYan
             }
             return result;
         }
-        
-//        private List<SourceIdentifier> collectSourceIds(com.cisco.yangide.core.dom.Module module) {
-//            List<SourceIdentifier>  sourceIdList    = new ArrayList<>();
-//            sourceIdList.add(new SourceIdentifier(module.getName(), module.getRevision()));
-//            for (ModuleImport moduleImport : module.getImports().values()) {
-//                sourceIdList.add(new SourceIdentifier(moduleImport.getName(), moduleImport.getRevision()));
-//            }
-//            for (SubModuleInclude subModuleInclude : module.getIncludes().values()) {
-//                sourceIdList.add(new SourceIdentifier(subModuleInclude.getName(), subModuleInclude.getRevision()));
-//            }
-//            return sourceIdList;
-//        }
     }
 }

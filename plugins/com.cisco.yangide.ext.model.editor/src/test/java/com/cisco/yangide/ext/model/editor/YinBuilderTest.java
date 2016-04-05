@@ -25,6 +25,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.opendaylight.yangtools.yang.model.parser.api.YangSyntaxErrorException;
 import org.opendaylight.yangtools.yang.model.repo.api.SchemaSourceException;
+import org.opendaylight.yangtools.yang.parser.spi.meta.ReactorException;
+import org.opendaylight.yangtools.yang.parser.spi.source.SourceException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -161,7 +163,7 @@ public class YinBuilderTest {
         assertThat(getXPathResult(xmldoc, "/module/container/leaf/config/@value")).isEqualTo("true");
     }
 
-    private Document buildYinDoc() throws XMLStreamException, SchemaSourceException, IOException, YangSyntaxErrorException, SAXException, ParserConfigurationException {
+    private Document buildYinDoc() throws XMLStreamException, SchemaSourceException, IOException, YangSyntaxErrorException, SAXException, ParserConfigurationException, SourceException, ReactorException {
         ByteArrayOutputStream   baos    = new ByteArrayOutputStream();
         yinBuilder.build(baos);
         return createDOMDoc(baos.toString());

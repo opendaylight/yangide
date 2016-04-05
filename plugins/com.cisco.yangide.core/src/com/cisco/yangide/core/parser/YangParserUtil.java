@@ -1,5 +1,6 @@
 /*******************************************************************************
  * Copyright (c) 2014, 2015 Cisco Systems, Inc. and others.  All rights reserved.
+ * Copyright (c) 2016 AT&T Incorporated.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -7,7 +8,9 @@
  *******************************************************************************/
 package com.cisco.yangide.core.parser;
 
+import java.io.ByteArrayInputStream;
 import java.util.BitSet;
+import java.util.Set;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BaseErrorListener;
@@ -26,6 +29,15 @@ import org.eclipse.core.resources.IProject;
 import org.opendaylight.yangtools.antlrv4.code.gen.YangLexer;
 import org.opendaylight.yangtools.antlrv4.code.gen.YangParser;
 import org.opendaylight.yangtools.antlrv4.code.gen.YangParser.YangContext;
+import org.opendaylight.yangtools.yang.model.api.SchemaContext;
+import org.opendaylight.yangtools.yang.parser.impl.YangParserListenerImpl;
+import org.opendaylight.yangtools.yang.parser.spi.meta.ReactorException;
+import org.opendaylight.yangtools.yang.parser.spi.source.SourceException;
+import org.opendaylight.yangtools.yang.parser.spi.source.StatementStreamSource;
+import org.opendaylight.yangtools.yang.parser.stmt.reactor.CrossSourceStatementReactor;
+import org.opendaylight.yangtools.yang.parser.stmt.reactor.EffectiveModelContext;
+import org.opendaylight.yangtools.yang.parser.stmt.rfc6020.YangInferencePipeline;
+import org.opendaylight.yangtools.yang.parser.stmt.rfc6020.YangStatementSourceImpl;
 
 import com.cisco.yangide.core.dom.Module;
 
@@ -71,6 +83,27 @@ public class YangParserUtil {
             new SemanticValidations(validationListener, project, module).validate();
         }
         return module;
+    }
+
+    /**
+     * This is a preliminary version of the parser interface that doesn't use the "deprecated"
+     * internal parser.  This still has problems, as I don't see a way to add sources AFTER
+     * the parse is completed, to specify the imported files.
+     * 
+     * @param chars
+     * @param project
+     * @param validationListener
+     * @return
+     * @throws SourceException
+     * @throws ReactorException
+     */
+    public static SchemaContext parseYangFileApiModule(char[] chars, IProject project, IYangValidationListener validationListener) throws SourceException, ReactorException {
+        StatementStreamSource   yangSource  =
+                new YangStatementSourceImpl(new ByteArrayInputStream(new String(chars).getBytes()));
+        CrossSourceStatementReactor.BuildAction reactor = YangInferencePipeline.RFC6020_REACTOR.newBuild();
+        reactor.addSource(yangSource);
+        SchemaContext   schemaContext   = reactor.buildEffective();
+        return schemaContext;
     }
 
     public static void validateYangContext(YangContext context, IYangValidationListener validationListener) {
@@ -161,7 +194,7 @@ public class YangParserUtil {
             anErrorDetected = true;
         }
 
-        @Override
+        //@Override
         public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet ambigAlts,
                 ATNConfigSet configs) {
             anErrorDetected = true;

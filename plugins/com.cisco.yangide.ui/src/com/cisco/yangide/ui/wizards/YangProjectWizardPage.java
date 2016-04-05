@@ -7,8 +7,10 @@
  *******************************************************************************/
 package com.cisco.yangide.ui.wizards;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -22,13 +24,14 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+
+import com.cisco.yangide.ui.YangUIPlugin;
 
 /**
  * @author Konstantin Zaitsev
@@ -37,7 +40,6 @@ import org.eclipse.swt.widgets.Text;
 class YangProjectWizardPage extends WizardPage {
 
     private Text rootDirTxt;
-    private Combo yangVersion;
     private Button exampleFileChk;
     private Table generatorsTable;
     private TableViewer generatorsViewer;
@@ -45,6 +47,7 @@ class YangProjectWizardPage extends WizardPage {
     private Button editBtn;
     private Button addBtn;
 
+    
     protected YangProjectWizardPage() {
         super("yangProjectPage");
         setTitle("YANG Tools Configuration");
@@ -59,10 +62,6 @@ class YangProjectWizardPage extends WizardPage {
         Composite group1 = new Composite(container, SWT.NONE);
         group1.setLayout(new GridLayout(2, false));
         group1.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-
-        new Label(group1, SWT.NONE).setText("YANG Tools Version:");
-        yangVersion = new Combo(group1, SWT.BORDER | SWT.READ_ONLY);
-        yangVersion.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
         new Label(group1, SWT.NONE).setText("YANG Files Root Directory:");
         rootDirTxt = new Text(group1, SWT.BORDER);
@@ -82,18 +81,13 @@ class YangProjectWizardPage extends WizardPage {
 
         setControl(container);
 
-        // add default values
-        // TODO KOS: load version from repository
-        yangVersion.add("0.8.0-Beryllium");
-        yangVersion.select(0);
-
         // default generator
         CodeGeneratorConfig config = new CodeGeneratorConfig();
-        config.setGroupId("org.opendaylight.mdsal");
-        config.setArtifactId("maven-sal-api-gen-plugin");
-        config.setVersion(yangVersion.getText());
-        config.setGenClassName("org.opendaylight.yangtools.maven.sal.api.gen.plugin.CodeGeneratorImpl");
-        config.setGenOutputDirectory("target/generated-sources/sal");
+        config.setGroupId(YangProjectWizard.codegenGroupId);
+        config.setArtifactId(YangProjectWizard.codegenArtifactId);
+        config.setVersion(YangProjectWizard.codegenVersion);
+        config.setGenClassName(YangProjectWizard.codegenClassname);
+        config.setGenOutputDirectory(YangProjectWizard.codegenOutputDir);
         generatorsViewer.add(config);
     }
 
@@ -241,9 +235,9 @@ class YangProjectWizardPage extends WizardPage {
         return rootDirTxt.getText();
     }
 
-    public String getYangVersion() {
-        return yangVersion.getText();
-    }
+//    public String getYangVersion() {
+//        return yangVersion.getText();
+//    }
 
     public List<CodeGeneratorConfig> getCodeGenerators() {
         List<CodeGeneratorConfig> list = new ArrayList<CodeGeneratorConfig>();

@@ -29,6 +29,7 @@ import com.cisco.yangide.core.dom.GroupingDefinition;
 import com.cisco.yangide.core.dom.IdentitySchemaNode;
 import com.cisco.yangide.core.dom.Module;
 import com.cisco.yangide.core.dom.ModuleImport;
+import com.cisco.yangide.core.dom.QName;
 import com.cisco.yangide.core.dom.SimpleNode;
 import com.cisco.yangide.core.dom.SubModule;
 import com.cisco.yangide.core.dom.SubModuleInclude;
@@ -173,6 +174,14 @@ public class RenameSupport {
                 || node instanceof BaseReference || node instanceof ModuleImport || node instanceof SubModuleInclude;
     }
 
+    private static String nameWithoutPrefix(String name) {
+        return ((name != null && name.indexOf(':') != -1) ? name.substring(name.indexOf(':') + 1) : name);
+    }
+    
+    private static boolean prefixMatchesModulePrefix(QName component, SimpleNode modulePrefix) {
+        return (component.getPrefix() != null && modulePrefix != null && component.getPrefix().equals(modulePrefix.getValue()));
+    }
+    
     /**
      * @param module module to find
      * @param node original node with definition
@@ -181,6 +190,8 @@ public class RenameSupport {
     public static ASTNamedNode[] findLocalReferences(Module module, final ASTNamedNode node) {
         final List<ASTNamedNode> nodes = new ArrayList<>();
         final String name = node.getName();
+//        final String nameWithoutPrefix  =
+//                ((name != null && name.indexOf(':') != -1) ? name.substring(name.indexOf(':') + 1) : name);
         final SimpleNode<String> modulePrefix = module.getPrefix();
         module.accept(new ASTVisitor() {
             @Override
@@ -191,13 +202,16 @@ public class RenameSupport {
                             || nn instanceof SubModule || nn instanceof IdentitySchemaNode)
                             && nn.getName().equals(name)) {
                         nodes.add(nn);
-                    } else if (nn instanceof TypeReference && ((TypeReference) nn).getType().getName().equals(name)) {
-                        nodes.add(nn);
-                    } else if (nn instanceof UsesNode && ((UsesNode) nn).getGrouping().getName().equals(name)) {
+                    } else if (nn instanceof TypeReference && nameWithoutPrefix(((TypeReference) nn).getType().getName()).equals(nameWithoutPrefix(name))) {
+                        if (prefixMatchesModulePrefix(((TypeReference) nn).getType(), modulePrefix)) {
+                            nodes.add(nn);
+                        }
+                    } else if (nn instanceof UsesNode && nameWithoutPrefix(((UsesNode) nn).getGrouping().getName()).equals(nameWithoutPrefix(name))) {
                         // We add the node if the prefix on the UsesNode matches the module prefix,
                         // either implicitly or explicitly.
-                        if (((UsesNode) nn).getGrouping().getPrefix() != null && modulePrefix != null
-                                && ((UsesNode) nn).getGrouping().getPrefix().equals(modulePrefix.getValue())) {
+                        if (prefixMatchesModulePrefix(((UsesNode) nn).getGrouping(), modulePrefix)) {
+//                        if (((UsesNode) nn).getGrouping().getPrefix() != null && modulePrefix != null
+//                                && ((UsesNode) nn).getGrouping().getPrefix().equals(modulePrefix.getValue())) {
                             nodes.add(nn);
                         }
                     } else if (nn instanceof BaseReference && ((BaseReference) nn).getType().getName().equals(name)) {

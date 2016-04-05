@@ -392,6 +392,12 @@ public class IndexManager extends JobManager {
             }
         }
 
+        String  nameWithoutPrefix   = name;
+        int colonIndex  = nameWithoutPrefix != null ? nameWithoutPrefix.indexOf(':') : -1; 
+        if (colonIndex != -1) {
+            nameWithoutPrefix   = nameWithoutPrefix.substring(colonIndex + 1);
+        }
+        
         for (Tuple6<String, String, String, ElementIndexType, String, ElementIndexInfo> entry : idxKeywords) {
             if (module != null && module.length() > 0 && !module.equals(entry.a)) {
                 continue;
@@ -405,7 +411,7 @@ public class IndexManager extends JobManager {
                 continue;
             }
 
-            if (name != null && name.length() > 0 && !entry.c.equals(name)) {
+            if (nameWithoutPrefix != null && nameWithoutPrefix.length() > 0 && !entry.c.equals(nameWithoutPrefix)) {
                 continue;
             }
 
@@ -443,6 +449,12 @@ public class IndexManager extends JobManager {
             }
         }
 
+        String  nameWithoutPrefix   = reference.getName();
+        int colonIndex  = nameWithoutPrefix != null ? nameWithoutPrefix.indexOf(':') : -1; 
+        if (colonIndex != -1) {
+            nameWithoutPrefix   = nameWithoutPrefix.substring(colonIndex + 1);
+        }
+
         for (Tuple4<QName, ElementIndexReferenceType, String, ElementIndexReferenceInfo> entry : idxReferences) {
             if (type != null && type != entry.b) {
                 continue;
@@ -461,7 +473,7 @@ public class IndexManager extends JobManager {
                 continue;
             }
 
-            if (reference.getName() != null && !reference.getName().equals(entry.a.getName())) {
+            if (nameWithoutPrefix != null && !nameWithoutPrefix.equals(entry.a.getName())) {
                 continue;
             }
 
