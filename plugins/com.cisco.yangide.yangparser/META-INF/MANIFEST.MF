@@ -24,10 +24,17 @@ Bundle-ClassPath: .,
  libs/yang-common-0.8.0-Beryllium.jar,
  libs/guava-18.0.jar,
  libs/antlr4-runtime-4.5.1.jar,
- libs/jsr305-3.0.0.jar
+ libs/jsr305-3.0.0.jar,
+ libs/junit-4.12.jar,
+ libs/mockito-all-1.10.19.jar,
+ libs/assertj-core-3.4.0.jar
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.antlr.v4.runtime,
+ org.assertj.core.api,
+ org.mockito,
+ org.mockito.runners,
+ org.mockito.stubbing,
  org.opendaylight.yangtools.concepts,
  org.opendaylight.yangtools.yang.common,
  org.opendaylight.yangtools.yang.model.api,

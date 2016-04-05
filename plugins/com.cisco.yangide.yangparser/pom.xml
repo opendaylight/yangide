@@ -28,6 +28,23 @@
   <properties>
     <odl-version>0.8.0-Beryllium</odl-version>
   </properties>
+  <dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+    </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.4.0</version>
+        <scope>test</scope>
+    </dependency>
+  </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -50,6 +67,17 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>./libs</outputDirectory>
+                        <includeArtifactIds>junit, mockito-all, assertj-core</includeArtifactIds>
+                    </configuration>
+                </execution>
                 <execution>
                     <id>copy</id>
                     <phase>process-resources</phase>
@@ -159,6 +187,24 @@
                                 <overWrite>true</overWrite>
                                 <destFileName>jsr305-3.0.0.jar</destFileName>
                             </artifactItem>
+<!-- 
+                            <artifactItem>
+                                <groupId>junit</groupId>
+                                <artifactId>junit</artifactId>
+                                <version>4.12</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>junit-4.12.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.mockito</groupId>
+                                <artifactId>mockito-all</artifactId>
+                                <version>1.10.19</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>mockito-all-1.10.19.jar</destFileName>
+                            </artifactItem>
+                             -->
                         </artifactItems>
                     </configuration>
                 </execution>

@@ -28,8 +28,6 @@ import org.opendaylight.yangtools.yang.model.api.ExtensionDefinition;
 import org.opendaylight.yangtools.yang.model.api.FeatureDefinition;
 import org.opendaylight.yangtools.yang.model.api.GroupingDefinition;
 import org.opendaylight.yangtools.yang.model.api.IdentitySchemaNode;
-import org.opendaylight.yangtools.yang.model.api.Module;
-import org.opendaylight.yangtools.yang.model.api.ModuleImport;
 import org.opendaylight.yangtools.yang.model.api.MustDefinition;
 import org.opendaylight.yangtools.yang.model.api.NotificationDefinition;
 import org.opendaylight.yangtools.yang.model.api.RevisionAwareXPath;
@@ -41,15 +39,20 @@ import org.opendaylight.yangtools.yang.model.api.UsesNode;
 import org.opendaylight.yangtools.yang.model.util.ModuleImportImpl;
 
 import com.cisco.yangide.core.YangCorePlugin;
+import com.cisco.yangide.core.dom.ASTCompositeNode;
 import com.cisco.yangide.core.dom.ASTNode;
 import com.cisco.yangide.core.dom.ContrainerSchemaNode;
 import com.cisco.yangide.core.dom.LeafListSchemaNode;
 import com.cisco.yangide.core.dom.LeafSchemaNode;
 import com.cisco.yangide.core.dom.ListSchemaNode;
 import com.cisco.yangide.core.dom.RevisionNode;
+import com.cisco.yangide.core.dom.SimpleNode;
 
 public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api.Module {
     private com.cisco.yangide.core.dom.Module module;
+    
+    public static final String NODE_NAME_PRESENCE   = "presence";
+    public static final String NODE_NAME_CONFIG     = "config";
     
     public ModuleApiProxy(com.cisco.yangide.core.dom.Module module) {
         this.module = module;
@@ -67,18 +70,28 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
         return result;
     }
 
+    private static boolean verifyPresenceOfNamedNode(ASTCompositeNode parentNode, String value) {
+        boolean foundNode   = false;
+        for (ASTNode node : parentNode.getChildren()) {
+            if (node instanceof SimpleNode) {
+                if (value.equals(((SimpleNode) node).getNodeName())) {
+                    foundNode   = true;
+                }
+            }
+        }
+        
+        return foundNode;
+    }
+
     @Override
     public Collection<DataSchemaNode> getChildNodes() {
         Collection<DataSchemaNode>  childNodes  = new ArrayList<>();
         for (ASTNode node : module.getChildren()) {
-            //System.out.println("node.type[" + node.getClass().getName() + "]");
             if (node instanceof RevisionNode) {
                 RevisionNode    revisionNode    = (RevisionNode) node;
-                //System.out.println("revisionNode[" + revisionNode + "]");
             }
             else if (node instanceof ContrainerSchemaNode) {
                 ContrainerSchemaNode    containerNode   = (ContrainerSchemaNode) node;
-                //System.out.println("containerNode[" + containerNode + "]");
                 // Create ContainerSchemaNode.
                 ContainerSchemaNode containerSchemaNode  =
                         constructContainerSchemaNode(getQNameModule(), containerNode);
@@ -152,7 +165,15 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
     }
 
     @Override
-    public String getContact() { return module.getContact().getValue(); }
+    public String getContact() {
+        // This is optional, so allow for null.
+        if (module.getContact() != null) {
+            return module.getContact().getValue();
+        }
+        else {
+            return null;
+        }
+    }
 
     @Override
     public String getDescription() { return module.getDescription(); }
@@ -204,7 +225,15 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
     }
 
     @Override
-    public String getOrganization() { return module.getOrganization().getValue(); }
+    public String getOrganization() {
+        // This is optional, so allow for null.
+        if (module.getOrganization() != null) {
+            return module.getOrganization().getValue();
+        }
+        else {
+            return null;
+        }
+    }
 
     @Override
     public String getPrefix() { return module.getPrefix().getValue(); }
@@ -294,8 +323,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             
             @Override
             public boolean isConfiguration() {
-                // TODO Auto-generated method stub
-                return false;
+                return verifyPresenceOfNamedNode(containerNode, NODE_NAME_CONFIG);
             }
             
             @Override
@@ -393,8 +421,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             
             @Override
             public boolean isPresenceContainer() {
-                // TODO Auto-generated method stub
-                return false;
+                return verifyPresenceOfNamedNode(containerNode, NODE_NAME_PRESENCE);
             }
         };
     }
@@ -568,8 +595,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             
             @Override
             public boolean isConfiguration() {
-                // TODO Auto-generated method stub
-                return false;
+                return verifyPresenceOfNamedNode(leafNode, NODE_NAME_CONFIG);
             }
             
             @Override
@@ -645,8 +671,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             
             @Override
             public boolean isConfiguration() {
-                // TODO Auto-generated method stub
-                return false;
+                return verifyPresenceOfNamedNode(leafListNode, NODE_NAME_CONFIG);
             }
             
             @Override
@@ -717,8 +742,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             
             @Override
             public boolean isConfiguration() {
-                // TODO Auto-generated method stub
-                return false;
+                return verifyPresenceOfNamedNode(listNode, NODE_NAME_CONFIG);
             }
             
             @Override

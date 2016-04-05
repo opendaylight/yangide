@@ -81,6 +81,7 @@ public class YangMultiPageEditorPart extends MultiPageEditorPart implements IYan
     private static final int    INDEX_DIAGRAM_PAGE  = 1;
     private static final int    INDEX_YIN_PAGE      = 2;
     private static final String MSG_LOADING_YIN_VIEW = "Loading Yin View ...";
+    private static final String MSG_SOURCE_INVALID_CANNOT_RENDER    = "Source code invalid, cannot render Yin view.";
     
     @Override
     protected void createPages() {
@@ -232,8 +233,13 @@ public class YangMultiPageEditorPart extends MultiPageEditorPart implements IYan
             setSourceSelection(highlightRange);
         }
         else if (newPageIndex == INDEX_YIN_PAGE) {
-            storeContentInYinView(MSG_LOADING_YIN_VIEW);
-            loadYinView();
+            if (modelSynchronizer.isSourceInvalid()) {
+                storeContentInYinView(MSG_SOURCE_INVALID_CANNOT_RENDER);
+            }
+            else {
+                storeContentInYinView(MSG_LOADING_YIN_VIEW);
+                loadYinView();
+            }
         }
         super.pageChange(newPageIndex);
     }
@@ -354,7 +360,7 @@ public class YangMultiPageEditorPart extends MultiPageEditorPart implements IYan
         public LoadYinViewJob(YangMultiPageEditorPart editor, YangEditor yangSourceEditor, String name) {
             super(name);
             this.editor     = editor;
-            this.yinBuilder = new YinBuilder(yangSourceEditor);
+            this.yinBuilder = new YinBuilder(editor, yangSourceEditor);
         }
         
         @Override
