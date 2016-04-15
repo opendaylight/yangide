@@ -13,7 +13,6 @@ Require-Bundle: org.eclipse.core.runtime,
  com.google.guava;bundle-version="15.0.0",
  org.slf4j.api;bundle-version="1.7.2"
 Bundle-ClassPath: .,
- libs/guava-18.0.jar,
  libs/antlr4-runtime-4.5.1.jar,
  libs/jsr305-3.0.0.jar,
  libs/junit-4.12.jar,
@@ -27,10 +26,12 @@ Bundle-ClassPath: .,
  libs/yang-model-export-1.0.0-SNAPSHOT.jar,
  libs/yang-model-util-1.0.0-SNAPSHOT.jar,
  libs/yang-parser-api-1.0.0-SNAPSHOT.jar,
- libs/yang-parser-impl-1.0.0-SNAPSHOT.jar
+ libs/yang-parser-impl-1.0.0-SNAPSHOT.jar,
+ libs/guava-18.0.jar
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Export-Package: org.antlr.v4.runtime,
+Export-Package: com.google.common.base,
+ org.antlr.v4.runtime,
  org.antlr.v4.runtime.atn,
  org.antlr.v4.runtime.dfa,
  org.antlr.v4.runtime.misc,

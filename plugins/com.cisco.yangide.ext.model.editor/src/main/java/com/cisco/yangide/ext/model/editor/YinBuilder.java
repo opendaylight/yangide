@@ -7,6 +7,8 @@
  *******************************************************************************/
 package com.cisco.yangide.ext.model.editor;
 
+//import static com.cisco.yangide.core.model.YangModelManager.search;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 import javax.xml.stream.XMLStreamException;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.ui.IFileEditorInput;
 import org.opendaylight.yangtools.yang.model.export.YinExportUtils;
 import org.opendaylight.yangtools.yang.model.parser.api.YangSyntaxErrorException;
@@ -23,8 +26,15 @@ import org.opendaylight.yangtools.yang.model.repo.api.SourceIdentifier;
 import org.opendaylight.yangtools.yang.model.repo.api.YangTextSchemaSource;
 import org.opendaylight.yangtools.yang.parser.repo.YangTextSchemaContextResolver;
 
+import com.cisco.yangide.core.YangCorePlugin;
+import com.cisco.yangide.core.YangModelException;
 import com.cisco.yangide.core.dom.ModuleImport;
 import com.cisco.yangide.core.dom.SubModuleInclude;
+import com.cisco.yangide.core.indexing.ElementIndexInfo;
+import com.cisco.yangide.core.indexing.ElementIndexType;
+import com.cisco.yangide.core.model.YangFile;
+import com.cisco.yangide.core.model.YangJarEntry;
+import com.cisco.yangide.core.model.YangModelManager;
 import com.cisco.yangide.core.parser.IYangValidationListener;
 import com.cisco.yangide.core.parser.YangParserUtil;
 import com.cisco.yangide.editor.editors.YangEditor;
@@ -63,20 +73,48 @@ public class YinBuilder {
         // YMPE doesn't run this job if the synchronizer says the source is invalid.
         if (module == null || (errorCountHolder.value > 0))
             return;
+
+        // Now have to register the source contents for all the referenced files.  The
+        // easy one is the contents of the current file.  Getting the contents of the
+        // imported files requires a little more work.  The files will be indexed in the
+        // IndexManager, but access to that is encapsulated in the YangModelManager.
         
         List<SourceIdentifier>  sourceIdentifiers   = collectSourceIds(module);
-        if (sourceIdentifiers.size() == 1) {
-            resolver.registerSource(YangTextSchemaSource.delegateForByteSource(sourceIdentifiers.get(0),
-                    ByteSource.wrap(yangSourceEditor.getDocument().get().getBytes())));
-        }
-        else {
-            for (SourceIdentifier id : sourceIdentifiers) {
-                //System.out.println("id[" + id + "]");
-                // delegate will be a ByteArrayByteSource.
-                //                YangTextSchemaSource    source  = YangTextSchemaSource.delegateForByteSource(id, delegate);
-                //                resolver.registerSource(source);
+        
+        resolver.registerSource(YangTextSchemaSource.delegateForByteSource(sourceIdentifiers.get(0),
+                ByteSource.wrap(yangSourceEditor.getDocument().get().getBytes())));
+        
+        for (int ctr = 1; ctr < sourceIdentifiers.size(); ++ ctr) {
+            String  name        = sourceIdentifiers.get(ctr).getName();
+            String  revision    =  sourceIdentifiers.get(ctr).getRevision();
+            ElementIndexInfo[]  infos   =
+                    YangModelManager.search(null, revision, name, ElementIndexType.MODULE,
+                                            file.getProject(), null);
+            try {
+                // Just use the first element of the array and quit.
+                for (ElementIndexInfo info : infos) {
+                    // Pretty much only two choices.  It's either an entry in a jar file, or
+                    // a raw file.
+                    if (info.getEntry() != null && info.getEntry().length() > 0) {
+                        YangJarEntry    jarEntry    =
+                                YangCorePlugin.createJarEntry(new Path(info.getPath()), info.getEntry());
+                        resolver.registerSource(YangTextSchemaSource.delegateForByteSource(sourceIdentifiers.get(0),
+                                ByteSource.wrap(new String(jarEntry.getContent()).getBytes())));
+                    }
+                    else {
+                        YangFile    yangFile    =
+                                YangCorePlugin.createYangFile(info.getPath());
+                        resolver.registerSource(YangTextSchemaSource.delegateForByteSource(sourceIdentifiers.get(0),
+                                ByteSource.wrap(new String(yangFile.getContents()).getBytes())));
+                    }
+                    break;
+                }
+            }
+            catch (YangModelException ex) {
+                YangCorePlugin.log(ex);
             }
         }
+
         YinExportUtils.writeModuleToOutputStream(resolver.getSchemaContext().get(), new ModuleApiProxy(module), outputStream);
     }
 
