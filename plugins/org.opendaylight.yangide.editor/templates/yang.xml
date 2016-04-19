@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright (c) 2014, 2015 Cisco Systems, Inc. and others.  All rights reserved.
+     
+     This program and the accompanying materials are made available under the
+     terms of the Eclipse Public License v1.0 which accompanies this distribution,
+     and is available at http://www.eclipse.org/legal/epl-v10.html
+     
+ -->
+<!--                                                                                -->
+<!-- This program and the accompanying materials are made available under the       -->
+<!-- terms of the Eclipse Public License v1.0 which accompanies this distribution,  -->
+<!-- and is available at http://www.eclipse.org/legal/epl-v10.html                  -->
+<!-- ============================================================================== -->
+<templates>
+	<template autoinsert="true"
+		context="org.opendaylight.yangide.editor.templates.general"
+		description="new container declaration"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.container"
+		name="container">container ${name} {
+	${cursor}
+}
+	</template>
+	<template autoinsert="true"
+		context="org.opendaylight.yangide.editor.templates.general" 
+		description="leaf template"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.leaf"
+		name="leaf">leaf ${name} {
+	type ${type};
+}
+	</template>
+	<template autoinsert="true" context="org.opendaylight.yangide.editor.templates.general" 
+		description="Module default structure"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.module"
+		name="module">module ${name} {
+	namespace "${namespace}";
+	prefix "${prefix}";
+	organization "${organization}";
+	description "${description}";
+	revision ${revision} {
+		description "${description}";
+	}
+	${cursor}
+}
+	</template>
+	<template autoinsert="true" context="org.opendaylight.yangide.editor.templates.general" 
+		description="organization declaration"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.organization"
+		name="organization">organization "${name}";
+	</template>
+
+	<template autoinsert="true" context="org.opendaylight.yangide.editor.templates.general" 
+		description="prefix declaration"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.prefix"
+		name="prefix">prefix "${name}";
+	</template>
+
+	<template autoinsert="true" context="org.opendaylight.yangide.editor.templates.general" 
+		description="revision declaration"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.revision"
+		name="revision">revision ${revision} {
+	"${description}";
+}
+	</template>
+	<template
+		autoinsert="true"
+		context="org.opendaylight.yangide.editor.templates.general" 
+		description="rpc declaration"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.rpc"
+		name="rpc">rpc ${name} {
+	input {
+		leaf ${name}{
+			type ${name};
+		}
+	}
+	output {
+		leaf ${name} {
+			type ${name};
+			}
+	}
+}
+	</template>
+
+	<template
+		autoinsert="true"
+		context="org.opendaylight.yangide.editor.templates.general" 
+		description="new submodule container"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.submodule"
+		name="submodule">submodule ${name} {
+	${cursor}
+}
+	</template>
+
+	<template
+		autoinsert="true"
+		context="org.opendaylight.yangide.editor.templates.general" 
+		description="typedef declaration"
+		enabled="true"
+		id="org.opendaylight.yangide.editor.templates.typedef"
+		name="typedef">typedef ${name} {
+	type ${type};
+	default ${value};
+	description ${description};
+}
+	</template>
+</templates>

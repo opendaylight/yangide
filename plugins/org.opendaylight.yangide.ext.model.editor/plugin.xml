@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2014, 2015 Cisco Systems, Inc. and others.  All rights reserved.
+     
+     This program and the accompanying materials are made available under the
+     terms of the Eclipse Public License v1.0 which accompanies this distribution,
+     and is available at http://www.eclipse.org/legal/epl-v10.html
+     
+ -->
+
+<plugin>
+
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypes">
+      <diagramType
+            name="Editor Diagram Type"
+            type="yang"
+            id="org.opendaylight.yangide.ext.model.editor.EditorDiagramType">
+      </diagramType>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypeProviders">
+      <diagramTypeProvider
+            name="Editor Diagram Type Provider"
+            class="org.opendaylight.yangide.ext.model.editor.diagram.EditorDiagramTypeProvider"
+            id="org.opendaylight.yangide.ext.model.editor.editorDiagramTypeProvider">
+         <diagramType
+               id="org.opendaylight.yangide.ext.model.editor.EditorDiagramType">
+         </diagramType>
+         <imageProvider
+            id="org.opendaylight.yangide.ext.model.editor.ImageProvider">
+      	 </imageProvider>
+      </diagramTypeProvider>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.opendaylight.yangide.ext.model.editor.YangMultiPageEditorPart"
+            default="true"
+            contributorClass="org.opendaylight.yangide.ext.model.editor.YangMutiPageEditorActionContributor"
+            icon="icons/yang_file.png"
+            extensions="yang"
+            id="org.opendaylight.yangide.ext.model.editor.YangMultiPageEditor"
+            name="YANG Model Editor">
+            <contentTypeBinding contentTypeId="org.opendaylight.yangide.core.yangFile"/>
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.graphiti.ui.imageProviders">
+      <imageProvider
+            class="org.opendaylight.yangide.ext.model.editor.util.YangDiagramImageProvider"
+            id="org.opendaylight.yangide.ext.model.editor.ImageProvider">
+      </imageProvider>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <propertyContributor
+            contributorId="yang.PropertyContributor">
+         <propertyCategory
+               category="Graphiti"></propertyCategory>
+      </propertyContributor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs
+            contributorId="yang.PropertyContributor">
+         <propertyTab
+               category="Graphiti"
+               id="org.opendaylight.yangide.ext.model.editor.TypeTab"
+               label="Type">
+         </propertyTab>
+         <propertyTab
+               category="Graphiti"
+               id="org.opendaylight.yangide.ext.model.editor.AttributesTab"
+               label="Attributes">
+         </propertyTab>
+         <propertyTab
+               category="Graphiti"
+               id="org.opendaylight.yangide.ext.model.editor.GeneralTab"
+               label="General">
+         </propertyTab>
+      </propertyTabs>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="yang.PropertyContributor">
+         <propertySection
+               class="org.opendaylight.yangide.ext.model.editor.property.GeneralTabReferenceSection"
+               filter="org.opendaylight.yangide.ext.model.editor.property.GeneralTabReferenceFilter"
+               id="org.opendaylight.yangide.ext.model.editor.GeneralTabReference"
+               tab="org.opendaylight.yangide.ext.model.editor.GeneralTab">
+         </propertySection>
+         <propertySection
+               class="org.opendaylight.yangide.ext.model.editor.property.GeneralTabNameSection"
+               filter="org.opendaylight.yangide.ext.model.editor.property.GeneralTabNameFilter"
+               id="org.opendaylight.yangide.ext.model.editor.GeneralTabName"
+               tab="org.opendaylight.yangide.ext.model.editor.GeneralTab">
+         </propertySection>
+         <propertySection
+               class="org.opendaylight.yangide.ext.model.editor.property.GeneralTabTypeSection"
+               filter="org.opendaylight.yangide.ext.model.editor.property.GeneralTabTypeFilter"
+               id="org.opendaylight.yangide.ext.model.editor.GeneralTabType"
+               tab="org.opendaylight.yangide.ext.model.editor.GeneralTab">
+         </propertySection>
+         <propertySection
+               class="org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection"
+               filter="org.opendaylight.yangide.ext.model.editor.property.AttributesTabContentFilter"
+               id="org.opendaylight.yangide.ext.model.editor.AttributesTabSection"
+               tab="org.opendaylight.yangide.ext.model.editor.AttributesTab">
+         </propertySection>
+         <propertySection
+               class="org.opendaylight.yangide.ext.model.editor.property.TypeTabSection"
+               filter="org.opendaylight.yangide.ext.model.editor.property.TypeTabFilter"
+               id="org.opendaylight.yangide.ext.model.editor.TypeTabSection"
+               afterSection="org.opendaylight.yangide.ext.model.editor.GeneralTabName"
+               tab="org.opendaylight.yangide.ext.model.editor.GeneralTab">
+         </propertySection>
+         <propertySection
+               class="org.opendaylight.yangide.ext.model.editor.property.GeneralTabDescriptionSection"
+               filter="org.opendaylight.yangide.ext.model.editor.property.GeneralTabDescriptionFilter"
+               id="org.opendaylight.yangide.ext.model.editor.GeneralTabDescriptionSection"
+               afterSection="org.opendaylight.yangide.ext.model.editor.TypeTabSection"
+               tab="org.opendaylight.yangide.ext.model.editor.GeneralTab">
+         </propertySection>
+      </propertySections>
+   </extension>
+   
+   <extension point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.opendaylight.yangide.ui.preferences.YANGBasePreferencePage"
+            class="org.opendaylight.yangide.ext.model.editor.preferences.ModelEditorPreferencePage"
+            id="org.opendaylight.yangide.ext.model.editor.preferences.ModelEditorPreferencePage"
+            name="Model Editor">
+      </page>
+   </extension>
+   
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart"
+            class="org.opendaylight.yangide.ext.model.editor.property.GraphitiEditPartToIPropertySourceAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+   </extension>
+
+    <extension point="org.eclipse.ui.bindings">
+        <key
+            sequence="DEL"
+            commandId="org.eclipse.ui.edit.delete"
+            contextId="org.eclipse.graphiti.ui.diagramEditor"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/> 
+    </extension>
+    
+     <extension point="org.eclipse.ui.actionSetPartAssociations">
+       <actionSetPartAssociation targetID="org.opendaylight.yangide.editor.CodingActionSet">
+          <part id="org.opendaylight.yangide.ext.model.editor.YangMultiPageEditor"/>
+       </actionSetPartAssociation>
+    </extension>
+</plugin>

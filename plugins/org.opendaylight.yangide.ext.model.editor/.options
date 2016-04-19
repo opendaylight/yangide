@@ -1,0 +1,3 @@
+org.opendaylight.yangide.ext.model.editor/debug=false
+org.opendaylight.yangide.ext.model.editor/editor/perf=false
+org.opendaylight.yangide.ext.model.editor/diagram/perf=false

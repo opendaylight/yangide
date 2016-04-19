@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2014, 2015 Cisco Systems, Inc. and others.  All rights reserved.
+     
+     This program and the accompanying materials are made available under the
+     terms of the Eclipse Public License v1.0 which accompanies this distribution,
+     and is available at http://www.eclipse.org/legal/epl-v10.html
+     
+ -->
+<!--                                                                                -->
+<!-- This program and the accompanying materials are made available under the       -->
+<!-- terms of the Eclipse Public License v1.0 which accompanies this distribution,  -->
+<!-- and is available at http://www.eclipse.org/legal/epl-v10.html                  -->
+<!-- ============================================================================== -->
+<plugin>
+   <extension-point id="actionGroup" name="actionGroup" schema="schema/actionGroup.exsd"/>
+   
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.opendaylight.yangide.editor.editors.YangEditor" 
+            default="true"
+            contributorClass="org.opendaylight.yangide.editor.editors.YangEditorActionContributor"
+            extensions="yang"
+            icon="icons/yang_file.png"
+            id="org.opendaylight.yangide.editor.editors.YANGEditor"
+            name="YANG Editor">
+            <contentTypeBinding contentTypeId="org.opendaylight.yangide.core.yangFile"/>
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.opendaylight.yangide.ui.preferences.YANGBasePreferencePage"
+            class="org.opendaylight.yangide.editor.preferences.YangEditorColoringPreferencePage"
+            id="org.opendaylight.yangide.editor.preferences.YANGEditorColoringPreferencePage"
+            name="Syntax Coloring">
+      </page>
+      <page
+            category="org.opendaylight.yangide.ui.preferences.YANGBasePreferencePage"
+            class="org.opendaylight.yangide.editor.templates.YangEditorTemplatesPage"
+            id="org.opendaylight.yangide.editor.templates.YANGEditorTemplatesPage"
+            name="Templates">
+      </page>
+      <page
+            category="org.opendaylight.yangide.ui.preferences.YANGBasePreferencePage"
+            class="org.opendaylight.yangide.editor.preferences.YangFormatterPreferencePage"
+            id="org.opendaylight.yangide.editor.preferences.YangFormatterPreferencePage"
+            name="Formatter">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <contextType
+            class="org.opendaylight.yangide.editor.templates.GeneralContextType"
+            id="org.opendaylight.yangide.editor.templates.general"
+            name="General">
+      </contextType>
+      <include
+            file="templates/yang.xml"
+            translations="templates/yang.xml">
+      </include>
+   </extension>   
+   
+    <extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
+      <hyperlinkDetector
+           activate="true"
+           class="org.opendaylight.yangide.editor.editors.YangElementHyperlinkDetector"
+           description="A hyperlink detector for Yang source code elements"
+           id="org.opendaylight.yangide.editor.YangElementHyperlinkDetector"
+           name="Yang Element"
+           targetId="org.opendaylight.yangide.yang.sourceFiles">
+      </hyperlinkDetector>
+    </extension>
+   
+    <extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectorTargets">
+      <target
+           id="org.opendaylight.yangide.yang.sourceFiles"
+           name="Yang Editor">
+        <context type="org.opendaylight.yangide.editor.editors.YangEditor"/>
+      </target>
+   </extension>
+   
+   <extension point="org.eclipse.ui.commands">
+       <command 
+           categoryId="org.opendaylight.yangide.category.navigate" 
+           id="org.opendaylight.yangide.navigate.open.declaration"
+           name="Open Declaration"/>
+     
+      <command
+            categoryId="org.opendaylight.yangide.category.source"
+            id="org.opendaylight.yangide.actions.format"
+            name="Format">
+      </command>
+      
+      <command
+            categoryId="org.opendaylight.yangide.category.source"
+            id="org.opendaylight.yangide.actions.toggle.comment"
+            name="Toggle comment">
+      </command>
+      <command
+            categoryId="org.opendaylight.yangide.category.source"
+            id="org.opendaylight.yangide.actions.add.block.comment"
+            name="Add Block comment">
+      </command>
+      <command
+            categoryId="org.opendaylight.yangide.category.source"
+            id="org.opendaylight.yangide.actions.remove.block.comment"
+            name="Remove Block comment">
+      </command>
+     
+   </extension>
+    
+    <extension point="org.eclipse.ui.bindings">
+        <key
+            commandId="org.opendaylight.yangide.navigate.open.declaration"
+            contextId="org.opendaylight.yangide.ui.Context"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="F3"/>
+       
+        <key
+            commandId="org.opendaylight.yangide.actions.toggle.comment"
+            contextId="org.opendaylight.yangide.ui.Context"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+/"/>
+        <key
+            commandId="org.opendaylight.yangide.actions.toggle.comment"
+            contextId="org.opendaylight.yangide.ui.Context"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+C"/>
+        <key
+            commandId="org.opendaylight.yangide.actions.add.block.comment"
+            contextId="org.opendaylight.yangide.ui.Context"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+/"/>
+        <key
+            commandId="org.opendaylight.yangide.actions.remove.block.comment"
+            contextId="org.opendaylight.yangide.ui.Context"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+\"/>
+            
+        <key
+            sequence="M1+M2+F"
+            contextId="org.opendaylight.yangide.ui.Context"
+            commandId="org.opendaylight.yangide.actions.format"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/> 
+    </extension>
+    
+     <extension point="org.eclipse.ui.actionSets">
+        <actionSet
+            id="org.opendaylight.yangide.editor.CodingActionSet" 
+            label="Source">
+          <menu
+                id="org.opendaylight.yangide.editor.source.menu"
+                label="%Source"
+                path="edit">
+             <separator name="commentGroup"/>
+             <separator name="shiftGroup"/>
+             <separator name="formatGroup"/>
+          </menu>
+           <action
+                allowLabelUpdate="true"
+                definitionId="org.opendaylight.yangide.navigate.open.declaration"
+                id="org.opendaylight.yangide.editor.actions.OpenDeclaration"
+                label="Open Declaration"
+                menubarPath="navigate/open.ext"
+                retarget="true">
+          </action>
+          <action
+                allowLabelUpdate="true"
+                definitionId="org.opendaylight.yangide.actions.remove.block.comment"
+                id="org.opendaylight.yangide.editor.actions.RemoveBlockComment"
+                label="Remove Block Comment"
+                menubarPath="org.opendaylight.yangide.editor.source.menu/commentGroup"
+                retarget="true">
+          </action>
+          <action
+                allowLabelUpdate="true"
+                definitionId="org.opendaylight.yangide.actions.add.block.comment"
+                id="org.opendaylight.yangide.editor.actions.AddBlockComment"
+                label="Add Block Comment"
+                menubarPath="org.opendaylight.yangide.editor.source.menu/commentGroup"
+                retarget="true">
+          </action>
+          <action
+                allowLabelUpdate="true"
+                definitionId="org.opendaylight.yangide.actions.toggle.comment"
+                id="org.opendaylight.yangide.editor.actions.ToggleComment"
+                label="Toggle Comment"
+                menubarPath="org.opendaylight.yangide.editor.source.menu/commentGroup"
+                retarget="true">
+          </action>
+            <action 
+                id="org.opendaylight.yangide.editor.actions.shiftLeft" 
+                definitionId="org.eclipse.ui.edit.text.shiftLeft"
+                menubarPath="org.opendaylight.yangide.editor.source.menu/shiftGroup"
+                label="Shift Left"
+                retarget="true">
+            </action>
+            <action 
+                id="org.opendaylight.yangide.editor.actions.shiftRight" 
+                definitionId="org.eclipse.ui.edit.text.shiftRight"
+                menubarPath="org.opendaylight.yangide.editor.source.menu/shiftGroup"
+                label="Shift Right"
+                retarget="true">
+            </action>
+          <action
+                allowLabelUpdate="true"
+                definitionId="org.opendaylight.yangide.actions.format"
+                id="org.opendaylight.yangide.editor.actions.FormatDocument"
+                label="Format"
+                menubarPath="org.opendaylight.yangide.editor.source.menu/formatGroup"
+                retarget="true">
+          </action>
+       </actionSet>
+    </extension>
+    
+    <extension point="org.eclipse.ui.menus">
+        <!-- Contribute a Open meno for popup-->
+        <menuContribution locationURI="popup:org.eclipse.ui.popup.any?endof=group.open">
+            <command id="OpenDeclaration"
+                commandId="org.opendaylight.yangide.navigate.open.declaration"
+                style="push">
+                <visibleWhen checkEnabled="false"><reference definitionId="org.opendaylight.yangide.activeContext.definition"/></visibleWhen>
+            </command>
+        </menuContribution>
+    
+        <!-- Contribute a Source menu for popup -->
+         <menuContribution locationURI="popup:org.eclipse.ui.popup.any?before=group.find">
+            <menu id="sourceMenuId" label="%Source">
+                <command id="ToggleComment"
+                    commandId="org.opendaylight.yangide.actions.toggle.comment"
+                    style="push">
+                    <visibleWhen checkEnabled="false"><reference definitionId="org.opendaylight.yangide.activeContext.definition"/></visibleWhen>
+                </command>
+                <command id="AddBlockComment"
+                    commandId="org.opendaylight.yangide.actions.add.block.comment"
+                    style="push">
+                    <visibleWhen checkEnabled="false"><reference definitionId="org.opendaylight.yangide.activeContext.definition"/></visibleWhen>
+                </command>
+                <command id="RemoveBlockComment"
+                    commandId="org.opendaylight.yangide.actions.remove.block.comment"
+                    style="push">
+                    <visibleWhen checkEnabled="false"><reference definitionId="org.opendaylight.yangide.activeContext.definition"/></visibleWhen>
+                </command>
+                
+                <separator name="format" visible="true"></separator>
+                
+                <command id="FormatDocument"
+                    commandId="org.opendaylight.yangide.actions.format" 
+                    style="push">
+                    <visibleWhen checkEnabled="false"><reference definitionId="org.opendaylight.yangide.activeContext.definition"/></visibleWhen>
+                </command>
+            </menu>
+        </menuContribution>
+    </extension>
+    
+    <extension point="org.eclipse.ui.actionSetPartAssociations">
+       <actionSetPartAssociation targetID="org.opendaylight.yangide.editor.CodingActionSet">
+          <part id="org.opendaylight.yangide.editor.editors.YANGEditor"/>
+       </actionSetPartAssociation>
+    </extension>
+   
+    <extension point="org.eclipse.core.expressions.definitions">
+        <definition id="org.opendaylight.yangide.activeContext.definition">
+            <with variable="activeContexts">
+               <iterate operator="or">
+                  <equals value="org.opendaylight.yangide.ui.Context"/>
+               </iterate>
+            </with>
+        </definition>
+    </extension>
+    
+    <extension point="org.eclipse.compare.contentViewers">
+        <viewer
+            id="org.opendaylight.yangide.editor.compare.YangFileViewer" 
+            extensions="yang"
+            class="org.opendaylight.yangide.editor.compare.YangFileViewerCreator"/>
+
+        <contentTypeBinding 
+            contentTypeId="org.opendaylight.yangide.core.yangFile" 
+            contentViewerId="org.opendaylight.yangide.editor.compare.YangFileViewer"/>
+    </extension>
+    
+    <extension point="org.eclipse.compare.contentMergeViewers">
+        <viewer 
+            id="org.opendaylight.yangide.editor.compare.YangFileMergeViewer" 
+            extensions="yang"
+            label="YANG File Merge Viewer"
+            class="org.opendaylight.yangide.editor.compare.YangFileMergeViewerCreator"/>
+
+        <contentTypeBinding
+            contentTypeId="org.opendaylight.yangide.core.yangFile"
+            contentMergeViewerId="org.opendaylight.yangide.editor.compare.YangFileMergeViewer"/>
+    </extension>    
+</plugin>
