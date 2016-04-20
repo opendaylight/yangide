@@ -11,7 +11,7 @@
 
   <groupId>org.opendaylight.yangide</groupId>
   <artifactId>org.opendaylight.yangide.parent</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.1</version>
   <packaging>pom</packaging>
   <name>YANG IDE Parent</name>
 
@@ -126,7 +126,7 @@
             <artifact>
               <groupId>org.opendaylight.yangide</groupId>
               <artifactId>org.opendaylight.yangide.target-platform</artifactId>
-              <version>1.1.1-SNAPSHOT</version>
+              <version>1.1.1</version>
             </artifact>
           </target>
           <environments>
