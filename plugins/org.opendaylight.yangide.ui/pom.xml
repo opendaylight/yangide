@@ -24,7 +24,7 @@
 
   <artifactId>org.opendaylight.yangide.ui</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <version>1.1.1-SNAPSHOT</version>
+
   <properties>
     <yangbinding_groupid>org.opendaylight.mdsal</yangbinding_groupid>
     <yangbinding_artifactid>yang-binding</yangbinding_artifactid>
