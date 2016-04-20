@@ -1,3 +1,4 @@
-# UUID                                  	Group Name
+# UUID                                                            	Group Name
 #
+0005e400a3f992732c5d824c6aec342f676f722a                          	Release Engineering Team
 ldap:cn=gerrit-yangide-committers,ou=Groups,dc=opendaylight,dc=org	ldap/gerrit-yangide-committers
