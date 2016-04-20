@@ -22,8 +22,12 @@
   </parent>
 
   <properties>
+    <!-- 3rdparty properties -->
     <tycho-version>0.24.0</tycho-version>
     <tycho-extras-version>0.24.0</tycho-extras-version>
+
+    <!-- ODL properties -->
+    <yangtools.version>1.0.0-SNAPSHOT</yangtools.version>
   </properties>
 
   <modules>
@@ -159,7 +163,7 @@
         </configuration>
       </plugin>
 	  <plugin>
-		<!-- This project is NOT producing an API, so there's no point in generating 
+		<!-- This project is NOT producing an API, so there's no point in generating
 			javadoc for it. -->
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-javadoc-plugin</artifactId>
