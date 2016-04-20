@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.opendaylight.yangide.yangparser
 Bundle-SymbolicName: org.opendaylight.yangide.yangparser;singleton:=true
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.1
 Bundle-Activator: org.opendaylight.yangide.yangparser.YangParserPlugin
 Bundle-Vendor: Cisco Systems, Inc.
 Require-Bundle: org.eclipse.core.runtime,

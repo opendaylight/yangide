@@ -18,13 +18,12 @@
   <parent>
     <groupId>org.opendaylight.yangide</groupId>
     <artifactId>org.opendaylight.yangide.parent</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <relativePath>../..</relativePath>
   </parent>
 
   <artifactId>org.opendaylight.yangide.m2e.yang</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <version>1.1.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
   </build>

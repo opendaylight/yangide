@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.opendaylight.yangide.core
 Bundle-SymbolicName: org.opendaylight.yangide.core;singleton:=true
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.1
 Bundle-Activator: org.opendaylight.yangide.core.YangCorePlugin
 Bundle-Vendor: Cisco Systems, Inc.
 Require-Bundle: org.eclipse.core.runtime,
