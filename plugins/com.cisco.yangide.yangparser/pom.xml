@@ -18,13 +18,13 @@
   <parent>
     <groupId>org.opendaylight.yangide</groupId>
     <artifactId>com.cisco.yangide.parent</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2</version>
     <relativePath>../..</relativePath>
   </parent>
 
   <artifactId>com.cisco.yangide.yangparser</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2</version>
   <properties>
     <odl-version>1.0.0-SNAPSHOT</odl-version>
   </properties>
