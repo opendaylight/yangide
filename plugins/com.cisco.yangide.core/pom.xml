@@ -24,7 +24,11 @@
 
   <artifactId>com.cisco.yangide.core</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <version>1.1.1-SNAPSHOT</version>
+
+  <properties>
+    <odl-version>1.0.0-SNAPSHOT</odl-version>
+  </properties>
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -56,6 +60,106 @@
                     <configuration>
                         <outputDirectory>./libs</outputDirectory>
                         <artifactItems>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>yang-model-api</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yang-model-api-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>yang-model-util</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yang-model-util-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>yang-parser-impl</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yang-parser-impl-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>yang-parser-api</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yang-parser-api-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>concepts</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yangtools.concepts-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>util</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yangtools.util-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>object-cache-api</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yangtools.object-cache-api-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>yang-model-export</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yang-model-export-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.opendaylight.yangtools</groupId>
+                                <artifactId>yang-common</artifactId>
+                                <version>${odl-version}</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>yang-common-${odl-version}.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.antlr</groupId>
+                                <artifactId>antlr4-runtime</artifactId>
+                                <version>4.5.1</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>antlr4-runtime-4.5.1.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>com.google.guava</groupId>
+                                <artifactId>guava</artifactId>
+                                <version>18.0</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>guava-18.0.jar</destFileName>
+                            </artifactItem>
+                            <artifactItem>
+                                <!-- The only reason to provide this artifact is so that calling methods in the
+                                Eclipse debugger "Display" view can work.  Otherwise, it reports errors about not finding
+                                Nullable and other related classes.
+                                 -->
+                                <groupId>com.google.code.findbugs</groupId>
+                                <artifactId>jsr305</artifactId>
+                                <version>3.0.0</version>
+                                <type>jar</type>
+                                <overWrite>true</overWrite>
+                                <destFileName>jsr305-3.0.0.jar</destFileName>
+                            </artifactItem>
                             <artifactItem>
                                 <groupId>org.mapdb</groupId>
                                 <artifactId>mapdb</artifactId>

@@ -28,7 +28,6 @@
 
   <modules>
     <!-- plugins -->
-    <module>plugins/com.cisco.yangide.yangparser</module>
     <module>plugins/com.cisco.yangide.core</module>
     <module>plugins/com.cisco.yangide.ui</module>
     <module>plugins/com.cisco.yangide.editor</module>
