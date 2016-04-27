@@ -50,24 +50,6 @@
     <module>product/update-site</module>
   </modules>
 
-  <repositories>
-    <repository>
-      <layout>p2</layout>
-      <id>mars</id>
-      <url>http://download.eclipse.org/releases/mars/</url>
-    </repository>
-    <repository>
-      <layout>p2</layout>
-      <id>sonatype</id>
-      <url>https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/</url>
-    </repository>
-    <!--repository>
-      <layout>p2</layout>
-      <id>emf-compare</id>
-      <url>http://download.eclipse.org/modeling/emf/compare/updates/releases/</url>
-    </repository-->
-  </repositories>
-
   <build>
     <plugins>
       <plugin>
