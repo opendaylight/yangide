@@ -9,18 +9,18 @@ package org.opendaylight.yangide.core.indexing;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceProxy;
-import org.eclipse.core.resources.IResourceProxyVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -57,7 +57,7 @@ public class IndexAllProject extends IndexRequest {
 
     @Override
     public boolean execute(IProgressMonitor progressMonitor) {
-        System.err.println("[I] Project: " + project.getName());
+        YangCorePlugin.log(IStatus.INFO, "[I] Project: " + project.getName());
 
         if (this.isCancelled || progressMonitor != null && progressMonitor.isCanceled()) {
             return true;
@@ -66,17 +66,16 @@ public class IndexAllProject extends IndexRequest {
         if (!this.project.isAccessible()) {
             return true;
         }
-        final HashSet<IPath> ignoredPath = new HashSet<IPath>();
-        final HashSet<IPath> externalJarsPath = new HashSet<IPath>();
+        final Set<IPath> ignoredPath = new HashSet<>();
+        final Set<IPath> externalJarsPath = new HashSet<>();
         try {
             JavaProject proj = (JavaProject) JavaCore.create(project);
-            final HashSet<String> projectScope = new HashSet<>();
+            final Set<String> projectScope = new HashSet<>();
             projectScope.add(project.getName());
 
             if (proj != null) {
                 IClasspathEntry[] classpath = proj.getResolvedClasspath();
-                for (int i = 0, length = classpath.length; i < length; i++) {
-                    IClasspathEntry entry = classpath[i];
+                for (IClasspathEntry entry : classpath) {
                     IPath entryPath = entry.getPath();
                     IPath output = entry.getOutputLocation();
                     if (output != null && !entryPath.equals(output)) {
@@ -94,8 +93,8 @@ public class IndexAllProject extends IndexRequest {
                     }
                 }
                 IPackageFragmentRoot[] roots = proj.getAllPackageFragmentRoots();
-                for (int i = 0, length = roots.length; i < length; i++) {
-                    IPath entryPath = roots[i].getPath();
+                for (IPackageFragmentRoot root : roots) {
+                    IPath entryPath = root.getPath();
                     if (entryPath != null && entryPath.toFile().exists()
                             && entryPath.lastSegment().toLowerCase().endsWith(".jar")) {
                         externalJarsPath.add(entryPath);
@@ -105,7 +104,7 @@ public class IndexAllProject extends IndexRequest {
                 YangProjectInfo yangProjectInfo = (YangProjectInfo) YangCorePlugin.create(project).getElementInfo(null);
                 yangProjectInfo.setProjectScope(projectScope);
                 // fill indirect scope
-                HashSet<String> indirectScope = new HashSet<String>();
+                Set<String> indirectScope = new HashSet<>();
                 indirectScope.add(project.getName());
                 for (IJavaProject jproj : JavaCore.create(ResourcesPlugin.getWorkspace().getRoot()).getJavaProjects()) {
                     if (jproj != proj) {
@@ -133,25 +132,22 @@ public class IndexAllProject extends IndexRequest {
             }
         }
         try {
-            final HashSet<IFile> indexedFiles = new HashSet<IFile>();
-            project.accept(new IResourceProxyVisitor() {
-                @Override
-                public boolean visit(IResourceProxy proxy) {
-                    if (IndexAllProject.this.isCancelled) {
-                        return false;
-                    }
-                    if (!ignoredPath.isEmpty() && ignoredPath.contains(proxy.requestFullPath())) {
-                        return false;
-                    }
-                    if (proxy.getType() == IResource.FILE) {
-                        if (CoreUtil.isYangLikeFileName(proxy.getName())) {
-                            IFile file = (IFile) proxy.requestResource();
-                            indexedFiles.add(file);
-                        }
-                        return false;
-                    }
-                    return true;
+            final HashSet<IFile> indexedFiles = new HashSet<>();
+            project.accept(proxy -> {
+                if (IndexAllProject.this.isCancelled) {
+                    return false;
                 }
+                if (!ignoredPath.isEmpty() && ignoredPath.contains(proxy.requestFullPath())) {
+                    return false;
+                }
+                if (proxy.getType() == IResource.FILE) {
+                    if (CoreUtil.isYangLikeFileName(proxy.getName())) {
+                        IFile file = (IFile) proxy.requestResource();
+                        indexedFiles.add(file);
+                    }
+                    return false;
+                }
+                return true;
             }, IResource.NONE);
 
             for (IFile iFile : indexedFiles) {
