@@ -45,6 +45,7 @@ import com.cisco.yangide.editor.editors.YangEditor;
 import com.cisco.yangide.ext.model.ModelPackage;
 import com.cisco.yangide.ext.model.Module;
 import com.cisco.yangide.ext.model.Node;
+import com.cisco.yangide.ext.model.editor.Activator;
 import com.cisco.yangide.ext.model.editor.diagram.EditorFeatureProvider;
 import com.cisco.yangide.ext.model.editor.util.DiagramImportSupport;
 import com.cisco.yangide.ext.model.editor.util.LayoutUtil;
@@ -67,7 +68,9 @@ public class YangDiagramEditor extends DiagramEditor {
 
         @Override
         public void nodeRemoved(Node node) {
-            System.out.println("Removed " + node);
+            if (Activator.getDefault().isDebugging()) {
+                System.out.println("Removed " + node);
+            }
             PictogramElement[] elements = getDiagramTypeProvider().getFeatureProvider()
                     .getAllPictogramElementsForBusinessObject(node);
             for (PictogramElement element : elements) {
@@ -80,7 +83,9 @@ public class YangDiagramEditor extends DiagramEditor {
 
         @Override
         public void nodeChanged(Node node, EObject object, Object newValue) {
-            System.out.println("Changed " + node);
+            if (Activator.getDefault().isDebugging()) {
+                System.out.println("Changed " + node);
+            }
             if (object instanceof EAttribute) {
                 PictogramElement pe = YangModelUIUtil.getBusinessObjectPropShape(
                         getDiagramTypeProvider().getFeatureProvider(), node, (EAttribute) object);
@@ -93,7 +98,9 @@ public class YangDiagramEditor extends DiagramEditor {
 
         @Override
         public void nodeAdded(Node parent, Node child, int position) {
-            System.out.println("Added " + child);
+            if (Activator.getDefault().isDebugging()) {
+                System.out.println("Added " + child);
+            }
             if (null == YangModelUIUtil.getBusinessObjectShape(getDiagramTypeProvider().getFeatureProvider(), child)) {
                 Point p = null;
                 if (parent instanceof Module) {
@@ -191,7 +198,7 @@ public class YangDiagramEditor extends DiagramEditor {
                 @Override
                 public void selectionChanged(SelectionChangedEvent event) {
                     ((YangDiagramBehavior) getDiagramBehavior()).getYangPaletteBehavior()
-                            .updateSelection(event.getSelection());
+                    .updateSelection(event.getSelection());
                 }
             });
         }
@@ -220,7 +227,7 @@ public class YangDiagramEditor extends DiagramEditor {
                                     .getConnectionReferenceSubjectClass(notification.getNotifier());
                             if (null != type) {
                                 getDiagramBehavior().getEditingDomain().getCommandStack()
-                                        .execute(new RecordingCommand(getDiagramBehavior().getEditingDomain()) {
+                                .execute(new RecordingCommand(getDiagramBehavior().getEditingDomain()) {
 
                                     @Override
                                     protected void doExecute() {
@@ -282,7 +289,7 @@ public class YangDiagramEditor extends DiagramEditor {
 
     public void setSourceModelManager(ISourceModelManager sourceModelManager) {
         ((EditorFeatureProvider) getDiagramTypeProvider().getFeatureProvider())
-                .setSourceModelManager(sourceModelManager);
+        .setSourceModelManager(sourceModelManager);
         this.sourceModelManager = sourceModelManager;
     }
 
@@ -295,8 +302,9 @@ public class YangDiagramEditor extends DiagramEditor {
      */
     public void startSourceSelectionUpdater() {
         GraphicalViewer graphicalViewer = getGraphicalViewer();
-        if (graphicalViewer != null)
+        if (graphicalViewer != null) {
             graphicalViewer.addSelectionChangedListener(sourceSelectionUpdater);
+        }
     }
 
     /**
@@ -304,8 +312,9 @@ public class YangDiagramEditor extends DiagramEditor {
      */
     public void stopSourceSelectionUpdater() {
         GraphicalViewer graphicalViewer = getGraphicalViewer();
-        if (graphicalViewer != null)
+        if (graphicalViewer != null) {
             graphicalViewer.removeSelectionChangedListener(sourceSelectionUpdater);
+        }
     }
 
     private class SourceSelectionUpdater implements ISelectionChangedListener {
@@ -314,7 +323,7 @@ public class YangDiagramEditor extends DiagramEditor {
             IStructuredSelection selection = (IStructuredSelection) event.getSelection();
             Object object = selection.getFirstElement();
             if (object instanceof GraphitiShapeEditPart) {
-                PictogramElement element = (PictogramElement) ((GraphitiShapeEditPart) object).getPictogramElement();
+                PictogramElement element = ((GraphitiShapeEditPart) object).getPictogramElement();
                 EObject node = Graphiti.getLinkService().getBusinessObjectForLinkedPictogramElement(element);
                 ASTNode moduleNode = sourceModelManager.getModuleNode((Node) node);
                 IRegion region = YangEditor.getSelectionRegion(moduleNode);
