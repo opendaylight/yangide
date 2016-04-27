@@ -50,10 +50,10 @@ import com.cisco.yangide.core.dom.SimpleNode;
 
 public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api.Module {
     private com.cisco.yangide.core.dom.Module module;
-    
+
     public static final String NODE_NAME_PRESENCE   = "presence";
     public static final String NODE_NAME_CONFIG     = "config";
-    
+
     public ModuleApiProxy(com.cisco.yangide.core.dom.Module module) {
         this.module = module;
     }
@@ -74,12 +74,12 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
         boolean foundNode   = false;
         for (ASTNode node : parentNode.getChildren()) {
             if (node instanceof SimpleNode) {
-                if (value.equals(((SimpleNode) node).getNodeName())) {
+                if (value.equals(((SimpleNode<?>) node).getNodeName())) {
                     foundNode   = true;
                 }
             }
         }
-        
+
         return foundNode;
     }
 
@@ -88,7 +88,6 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
         Collection<DataSchemaNode>  childNodes  = new ArrayList<>();
         for (ASTNode node : module.getChildren()) {
             if (node instanceof RevisionNode) {
-                RevisionNode    revisionNode    = (RevisionNode) node;
             }
             else if (node instanceof ContrainerSchemaNode) {
                 ContrainerSchemaNode    containerNode   = (ContrainerSchemaNode) node;
@@ -149,7 +148,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
     @Override
     public QNameModule getQNameModule() {
         return QNameModule.create(java.net.URI.create(module.getNamespace()),
-                                  revisionStringToDate(module.getRevision()));
+                revisionStringToDate(module.getRevision()));
     }
 
     @Override
@@ -211,8 +210,8 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
         Set<org.opendaylight.yangtools.yang.model.api.ModuleImport> imports = new HashSet<>();
         for (Map.Entry<String, com.cisco.yangide.core.dom.ModuleImport> entry : module.getImports().entrySet()) {
             imports.add(new ModuleImportImpl(entry.getValue().getName(),
-                                             revisionStringToDate(entry.getValue().getRevision()),
-                                             entry.getValue().getPrefix()));
+                    revisionStringToDate(entry.getValue().getRevision()),
+                    entry.getValue().getPrefix()));
         }
         return imports;
     }
@@ -272,117 +271,119 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
     public String getYangVersion() {
         // The RFC says that "yang-version" is OPTIONAL, but the yangtools machinery expects a parsed module to contain
         // the default value of "1" if it doesn't find it.
-        if (module.getYangVersion() != null)
+        if (module.getYangVersion() != null) {
             return module.getYangVersion().getValue();
-        else
+        } else {
             return "1";
-    }
-    
-    private org.opendaylight.yangtools.yang.model.api.Status    constructStatus(String status) {
-        if (status == null)
-            return null;
-        switch (status) {
-        case    "CURRENT":      return org.opendaylight.yangtools.yang.model.api.Status.CURRENT;
-        case    "DEPRECATED":   return org.opendaylight.yangtools.yang.model.api.Status.DEPRECATED;
-        case    "OBSOLETE":     return org.opendaylight.yangtools.yang.model.api.Status.OBSOLETE;
-        default:
-            return null;
         }
     }
-    
+
+    private org.opendaylight.yangtools.yang.model.api.Status    constructStatus(String status) {
+        if (status == null) {
+            return null;
+        }
+        switch (status) {
+            case    "CURRENT":      return org.opendaylight.yangtools.yang.model.api.Status.CURRENT;
+            case    "DEPRECATED":   return org.opendaylight.yangtools.yang.model.api.Status.DEPRECATED;
+            case    "OBSOLETE":     return org.opendaylight.yangtools.yang.model.api.Status.OBSOLETE;
+            default:
+                return null;
+        }
+    }
+
     private ContainerSchemaNode constructContainerSchemaNode(final QNameModule qnameModule,
-                                                             final ContrainerSchemaNode containerNode) {
+            final ContrainerSchemaNode containerNode) {
         return new ContainerSchemaNode() {
             @Override
             public org.opendaylight.yangtools.yang.model.api.Status getStatus() {
                 return constructStatus(containerNode.getStatus());
             }
-            
+
             @Override
             public String getReference() { return containerNode.getReference(); }
-            
+
             @Override
             public String getDescription() { return containerNode.getDescription(); }
-            
+
             @Override
             public List<UnknownSchemaNode> getUnknownSchemaNodes() {
                 List<UnknownSchemaNode> unknownSchemaNodes  = new ArrayList<>();
                 // TODO populate this.
                 return unknownSchemaNodes;
             }
-            
+
             @Override
             public QName getQName() { return QName.create(qnameModule, containerNode.getName()); }
-            
+
             @Override
             public SchemaPath getPath() {
                 SchemaPath  schemaPath  = SchemaPath.create(true, getQName());
                 // TODO fix this.
                 return schemaPath;
             }
-            
+
             @Override
             public boolean isConfiguration() {
                 return verifyPresenceOfNamedNode(containerNode, NODE_NAME_CONFIG);
             }
-            
+
             @Override
             public boolean isAugmenting() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public boolean isAddedByUses() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public ConstraintDefinition getConstraints() {
                 return constructConstraints(qnameModule, containerNode);
             }
-            
+
             @Override
             public Set<AugmentationSchema> getAvailableAugmentations() {
                 Set<AugmentationSchema> availableAugmentations  = new HashSet<>();
                 // TODO populate this.
                 return availableAugmentations;
             }
-            
+
             @Override
             public Set<UsesNode> getUses() {
                 Set<UsesNode>   uses    = new HashSet<>();
                 // TODO populate this.
                 return uses;
             }
-            
+
             @Override
             public Set<TypeDefinition<?>> getTypeDefinitions() {
                 Set<TypeDefinition<?>>  typeDefinitions = new HashSet<>();
                 // TODO populate this.
                 return typeDefinitions;
             }
-            
+
             @Override
             public Set<GroupingDefinition> getGroupings() {
                 Set<GroupingDefinition> groupings   = new HashSet<>();
                 // TODO populate this.
                 return groupings;
             }
-            
+
             @Override
             public DataSchemaNode getDataChildByName(String paramString) {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public DataSchemaNode getDataChildByName(QName paramQName) {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Collection<DataSchemaNode> getChildNodes() {
                 Collection<DataSchemaNode>  childNodes  = new ArrayList<>();
@@ -414,18 +415,18 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
                     else {
                         //System.out.println("Unexpected node type of \"" + node.getClass().getName() + "\".");
                     }
-                    
+
                 }
                 return childNodes;
             }
-            
+
             @Override
             public boolean isPresenceContainer() {
                 return verifyPresenceOfNamedNode(containerNode, NODE_NAME_PRESENCE);
             }
         };
     }
-    
+
     private ConstraintDefinition constructConstraints(QNameModule qnameModule, ContrainerSchemaNode containerNode) {
         return new ConstraintDefinition() {
             @Override
@@ -433,26 +434,26 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public RevisionAwareXPath getWhenCondition() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Set<MustDefinition> getMustConstraints() {
                 Set<MustDefinition> mustConstraints = new HashSet<>();
                 // TODO populate this.
                 return mustConstraints;
             }
-            
+
             @Override
             public Integer getMinElements() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Integer getMaxElements() {
                 // TODO Auto-generated method stub
@@ -468,25 +469,25 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public RevisionAwareXPath getWhenCondition() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Set<MustDefinition> getMustConstraints() {
                 Set<MustDefinition> mustConstraints = new HashSet<>();
                 return mustConstraints;
             }
-            
+
             @Override
             public Integer getMinElements() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Integer getMaxElements() {
                 // TODO Auto-generated method stub
@@ -502,25 +503,25 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public RevisionAwareXPath getWhenCondition() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Set<MustDefinition> getMustConstraints() {
                 Set<MustDefinition> mustConstraints = new HashSet<>();
                 return mustConstraints;
             }
-            
+
             @Override
             public Integer getMinElements() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Integer getMaxElements() {
                 // TODO Auto-generated method stub
@@ -536,25 +537,25 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public RevisionAwareXPath getWhenCondition() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Set<MustDefinition> getMustConstraints() {
                 Set<MustDefinition> mustConstraints = new HashSet<>();
                 return mustConstraints;
             }
-            
+
             @Override
             public Integer getMinElements() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public Integer getMaxElements() {
                 // TODO Auto-generated method stub
@@ -569,56 +570,56 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             public org.opendaylight.yangtools.yang.model.api.Status getStatus() {
                 return constructStatus(leafNode.getStatus());
             }
-            
+
             @Override
             public String getReference() { return leafNode.getReference(); }
-            
+
             @Override
             public String getDescription() { return leafNode.getDescription(); }
-            
+
             @Override
             public List<UnknownSchemaNode> getUnknownSchemaNodes() {
                 List<UnknownSchemaNode> unknownSchemaNodes  = new ArrayList<>();
                 // TODO populate this.
                 return unknownSchemaNodes;
-           }
-            
+            }
+
             @Override
             public QName getQName() { return QName.create(qnameModule, leafNode.getName()); }
-            
+
             @Override
             public SchemaPath getPath() {
                 SchemaPath  schemaPath  = SchemaPath.create(true, getQName());
                 // TODO fix this.
                 return schemaPath;
             }
-            
+
             @Override
             public boolean isConfiguration() {
                 return verifyPresenceOfNamedNode(leafNode, NODE_NAME_CONFIG);
             }
-            
+
             @Override
             public boolean isAugmenting() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public boolean isAddedByUses() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public ConstraintDefinition getConstraints() { return constructConstraints(qnameModule, leafNode); }
-            
+
             @Override
             public String getUnits() {
                 // TODO Auto-generated method stub
                 return null;
             }
-            
+
             @Override
             public TypeDefinition<?> getType() {
                 for (ASTNode node : leafNode.getChildren()) {
@@ -645,50 +646,50 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             public org.opendaylight.yangtools.yang.model.api.Status getStatus() {
                 return constructStatus(leafListNode.getStatus());
             }
-            
+
             @Override
             public String getReference() { return leafListNode.getReference(); }
-            
+
             @Override
             public String getDescription() { return leafListNode.getDescription(); }
-            
+
             @Override
             public List<UnknownSchemaNode> getUnknownSchemaNodes() {
                 List<UnknownSchemaNode> unknownSchemaNodes  = new ArrayList<>();
                 // TODO populate this.
                 return unknownSchemaNodes;
-           }
-            
+            }
+
             @Override
             public QName getQName() { return QName.create(qnameModule, leafListNode.getName()); }
-            
+
             @Override
             public SchemaPath getPath() {
                 SchemaPath  schemaPath  = SchemaPath.create(true, getQName());
                 // TODO fix this.
                 return schemaPath;
             }
-            
+
             @Override
             public boolean isConfiguration() {
                 return verifyPresenceOfNamedNode(leafListNode, NODE_NAME_CONFIG);
             }
-            
+
             @Override
             public boolean isAugmenting() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public boolean isAddedByUses() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public ConstraintDefinition getConstraints() { return constructConstraints(qnameModule, leafListNode); }
-            
+
             @Override
             public TypeDefinition<?> getType() {
                 for (ASTNode node : leafListNode.getChildren()) {
@@ -710,56 +711,56 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
     }
 
     private org.opendaylight.yangtools.yang.model.api.ListSchemaNode    constructListSchemaNode(final QNameModule qnameModule,
-                                                                                                final ListSchemaNode listNode) {
+            final ListSchemaNode listNode) {
         return new org.opendaylight.yangtools.yang.model.api.ListSchemaNode() {
             @Override
             public org.opendaylight.yangtools.yang.model.api.Status getStatus() {
                 return constructStatus(listNode.getStatus());
             }
-            
+
             @Override
             public String getReference() { return listNode.getReference(); }
-            
+
             @Override
             public String getDescription() { return listNode.getDescription(); }
-            
+
             @Override
             public List<UnknownSchemaNode> getUnknownSchemaNodes() {
                 List<UnknownSchemaNode> unknownSchemaNodes  = new ArrayList<>();
                 // TODO populate this.
                 return unknownSchemaNodes;
-           }
-            
+            }
+
             @Override
             public QName getQName() { return QName.create(qnameModule, listNode.getName()); }
-            
+
             @Override
             public SchemaPath getPath() {
                 SchemaPath  schemaPath  = SchemaPath.create(true, getQName());
                 // TODO fix this.
                 return schemaPath;
             }
-            
+
             @Override
             public boolean isConfiguration() {
                 return verifyPresenceOfNamedNode(listNode, NODE_NAME_CONFIG);
             }
-            
+
             @Override
             public boolean isAugmenting() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public boolean isAddedByUses() {
                 // TODO Auto-generated method stub
                 return false;
             }
-            
+
             @Override
             public ConstraintDefinition getConstraints() { return constructConstraints(qnameModule, listNode); }
-            
+
             @Override
             public boolean isUserOrdered() {
                 // TODO Auto-generated method stub
@@ -831,7 +832,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             }
 
             @Override
-            public List<QName> getKeyDefinition() { 
+            public List<QName> getKeyDefinition() {
                 List<QName> keyDefinitionList   = new ArrayList<>();
                 keyDefinitionList.add(QName.create(listNode.getKey().getName()));
                 return keyDefinitionList;
@@ -868,7 +869,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             public org.opendaylight.yangtools.yang.model.api.Status getStatus() { return constructStatus(typeDefinitionNode.getStatus()); }
 
             @Override
-            public TypeDefinition getBaseType() {
+            public TypeDefinition<?> getBaseType() {
                 // TODO Auto-generated method stub
                 return null;
             }
@@ -916,7 +917,7 @@ public class ModuleApiProxy implements org.opendaylight.yangtools.yang.model.api
             public org.opendaylight.yangtools.yang.model.api.Status getStatus() { return constructStatus(typeReferenceNode.getStatus()); }
 
             @Override
-            public TypeDefinition getBaseType() {
+            public TypeDefinition<?> getBaseType() {
                 // TODO Auto-generated method stub
                 return null;
             }

@@ -9,7 +9,6 @@
     <relativePath>..</relativePath>
   </parent> 
 
-  <groupId>org.opendaylight.yangide.test</groupId>
   <artifactId>com.cisco.yangide.editor.test</artifactId>
   
   <packaging>rcpttTest</packaging>
