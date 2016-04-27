@@ -21,8 +21,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.osgi.framework.BundleContext;
-
 import org.opendaylight.yangide.core.model.YangElement;
 import org.opendaylight.yangide.core.model.YangFile;
 import org.opendaylight.yangide.core.model.YangFolder;
@@ -31,19 +29,20 @@ import org.opendaylight.yangide.core.model.YangJarFile;
 import org.opendaylight.yangide.core.model.YangModel;
 import org.opendaylight.yangide.core.model.YangModelManager;
 import org.opendaylight.yangide.core.model.YangProject;
+import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the plug-in life cycle.
  */
 public class YangCorePlugin extends Plugin {
 
-    /** The plug-in ID */
+    /* The plug-in ID. */
     public static final String PLUGIN_ID = "org.opendaylight.yangide.core"; //$NON-NLS-1$
 
     /** Problem marker ID. */
     public static final String YANGIDE_PROBLEM_MARKER = "org.opendaylight.yangide.core.problem";
 
-    /** The shared instance */
+    /* The shared instance */
     private static YangCorePlugin plugin;
 
     @Override
@@ -144,10 +143,6 @@ public class YangCorePlugin extends Plugin {
         return new YangJarFile(path, getYangModel());
     }
 
-    /**
-     * @param deltaRes
-     * @return
-     */
     public static YangElement create(IResource resource) {
         switch (resource.getType()) {
         case IResource.PROJECT:
@@ -166,10 +161,7 @@ public class YangCorePlugin extends Plugin {
         IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
         return createYangFile(file);
     }
-    
-    /**
-     * @param resource
-     */
+
     public static YangFile createYangFile(IResource resource) {
         return new YangFile((IFile) resource, create(resource.getParent()));
     }

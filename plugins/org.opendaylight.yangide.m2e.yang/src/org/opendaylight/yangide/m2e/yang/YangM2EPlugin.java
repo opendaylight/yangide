@@ -10,16 +10,17 @@ package org.opendaylight.yangide.m2e.yang;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
-
 import org.opendaylight.yangide.core.YangCorePlugin;
 import org.opendaylight.yangide.ui.YangUIPlugin;
 import org.opendaylight.yangide.ui.preferences.YangPreferenceConstants;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
 
 /**
+ * YANG IDE M2E Eclipse Plugin.
+ *
  * @author Konstantin Zaitsev
- * date: Jul 2, 2014
+ * @since Jul 2, 2014
  */
 public class YangM2EPlugin extends Plugin implements BundleActivator {
     // The plug-in ID
@@ -47,7 +48,7 @@ public class YangM2EPlugin extends Plugin implements BundleActivator {
     }
 
     /**
-     * Returns the shared instance
+     * Returns the shared instance.
      *
      * @return the shared instance
      */
@@ -55,7 +56,7 @@ public class YangM2EPlugin extends Plugin implements BundleActivator {
         return plugin;
     }
 
-    public static void traceTime(String category, String message, long start, long end) {
+    static void traceTime(String category, String message, long start, long end) {
         if (YangUIPlugin.getDefault().getPreferenceStore().getBoolean(YangPreferenceConstants.ENABLE_TRACING)) {
             Status status = new Status(IStatus.INFO, YangM2EPlugin.PLUGIN_ID, "[" + category + "] " + message + ": "
                     + (end - start) + "ms");
