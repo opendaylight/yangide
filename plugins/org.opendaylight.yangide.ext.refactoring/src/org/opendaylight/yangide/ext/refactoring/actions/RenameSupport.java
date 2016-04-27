@@ -178,7 +178,7 @@ public class RenameSupport {
         return ((name != null && name.indexOf(':') != -1) ? name.substring(name.indexOf(':') + 1) : name);
     }
     
-    private static boolean prefixMatchesModulePrefix(QName component, SimpleNode modulePrefix) {
+    private static boolean prefixMatchesModulePrefix(QName component, SimpleNode<String> modulePrefix) {
         return (component.getPrefix() != null && modulePrefix != null && component.getPrefix().equals(modulePrefix.getValue()));
     }
     

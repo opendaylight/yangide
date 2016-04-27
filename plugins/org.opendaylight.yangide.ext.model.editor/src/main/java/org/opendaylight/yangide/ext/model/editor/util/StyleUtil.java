@@ -23,7 +23,6 @@ import org.eclipse.swt.graphics.FontData;
 import org.opendaylight.yangide.ext.model.editor.Activator;
 import org.opendaylight.yangide.ext.model.editor.preferences.ModelEditorPreferences;
 
-@SuppressWarnings("restriction")
 public class StyleUtil {
 
     private StyleUtil() {

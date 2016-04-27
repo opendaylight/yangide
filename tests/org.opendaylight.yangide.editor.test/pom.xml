@@ -9,9 +9,7 @@
     <relativePath>..</relativePath>
   </parent> 
 
-  <groupId>org.opendaylight.yangide.test</groupId>
-  <artifactId>org.opendaylight.yangide.editor.test</artifactId>
-  
+  <artifactId>org.opendaylight.yangide.editor.test</artifactId>  
   <packaging>rcpttTest</packaging>
 
   <build>

@@ -7,11 +7,8 @@
  *******************************************************************************/
 package org.opendaylight.yangide.ui.wizards;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -31,8 +28,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
-import org.opendaylight.yangide.ui.YangUIPlugin;
-
 /**
  * @author Konstantin Zaitsev
  * date: Jun 27, 2014
@@ -47,7 +42,7 @@ class YangProjectWizardPage extends WizardPage {
     private Button editBtn;
     private Button addBtn;
 
-    
+
     protected YangProjectWizardPage() {
         super("yangProjectPage");
         setTitle("YANG Tools Configuration");
@@ -240,7 +235,7 @@ class YangProjectWizardPage extends WizardPage {
 //    }
 
     public List<CodeGeneratorConfig> getCodeGenerators() {
-        List<CodeGeneratorConfig> list = new ArrayList<CodeGeneratorConfig>();
+        List<CodeGeneratorConfig> list = new ArrayList<>();
         for (TableItem item : generatorsTable.getItems()) {
             list.add((CodeGeneratorConfig) item.getData());
         }
