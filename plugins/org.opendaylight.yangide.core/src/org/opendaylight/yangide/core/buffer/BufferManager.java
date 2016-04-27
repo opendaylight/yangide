@@ -72,7 +72,7 @@ public class BufferManager {
     /**
      * Returns the default buffer manager.
      */
-    public synchronized static BufferManager getDefaultBufferManager() {
+    public static synchronized BufferManager getDefaultBufferManager() {
         if (DEFAULT_BUFFER_MANAGER == null) {
             DEFAULT_BUFFER_MANAGER = new BufferManager();
         }
@@ -81,7 +81,7 @@ public class BufferManager {
 
     /**
      * Returns an enumeration of all open buffers.
-     * <p>
+     *
      * The <code>Enumeration</code> answered is thread safe.
      *
      * @see OverflowingLRUCache
