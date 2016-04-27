@@ -121,11 +121,11 @@ public class IndexAllProject extends IndexRequest {
             // java project doesn't exist: ignore
         }
 
-        for (IPath iPath : externalJarsPath) {
-            try (JarFile jarFile = new JarFile(iPath.toFile())) {
+        for (IPath path : externalJarsPath) {
+            try (JarFile jarFile = new JarFile(path.toFile())) {
                 ZipEntry entry = jarFile.getEntry("META-INF/yang/");
                 if (entry != null) {
-                    this.manager.addJarFile(project, iPath);
+                    this.manager.addJarFile(project, path);
                 }
             } catch (IOException e) {
                 YangCorePlugin.log(e);
@@ -150,8 +150,8 @@ public class IndexAllProject extends IndexRequest {
                 return true;
             }, IResource.NONE);
 
-            for (IFile iFile : indexedFiles) {
-                this.manager.addSource(iFile);
+            for (IFile file : indexedFiles) {
+                this.manager.addSource(file);
             }
         } catch (CoreException e) {
             this.manager.removeIndexFamily(project);
