@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_3f48ef2c",
+        "filename": "samples/yang-module2/.classpath",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3576
+      },
+      "writtenOn": "2016-04-28T20:02:46Z",
+      "side": 1,
+      "message": "What is this for?",
+      "revId": "44a346612ddb0fa7cf337510b9d6bd4a7835ba01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
