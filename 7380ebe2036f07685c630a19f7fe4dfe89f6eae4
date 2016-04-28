@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_1f424b10",
+        "filename": "plugins/com.cisco.yangide.ext.model.editor/.classpath",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3576
+      },
+      "writtenOn": "2016-04-28T19:41:38Z",
+      "side": 0,
+      "message": "This makes it seem like this wasn\u0027t branched from Master, but from one of your other branches, because the src/test/java is gone from here, but that IS in master.  I\u0027m confused.",
+      "revId": "7380ebe2036f07685c630a19f7fe4dfe89f6eae4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
