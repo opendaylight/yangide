@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_1f21ab9f",
+        "filename": "product/target-platform/.settings/org.eclipse.m2e.core.prefs",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3576
+      },
+      "writtenOn": "2016-04-28T16:41:11Z",
+      "side": 1,
+      "message": "I could use some more information about what exactly you\u0027re changing here, and at a higher level in the review comments also.",
+      "revId": "7380ebe2036f07685c630a19f7fe4dfe89f6eae4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

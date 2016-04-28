@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_7f1a676f",
+        "filename": "plugins/com.cisco.yangide.ext.model.editor/.classpath",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3576
+      },
+      "writtenOn": "2016-04-28T16:41:11Z",
+      "side": 0,
+      "message": "This is an area that could use some examination.  Your change removed the \"src/test/java\" source folder, which I\u0027ve also seen Eclipse randomly remove several times.  I think it may be a convention thing for PDE projects (putting everything in \"src\" instead of \"src/main/java\" and \"src/test/java\", being the typical Maven convention).  I did this because I was trying to have a \"pure\" (non-Tycho) unit test, which seems to be hard to do. You\u0027ll probably notice some of the odd things that I did in this particular plugin project to manage this.\n\nAlso, I don\u0027t understand the difference for the JRE_CONTAINER property change.",
+      "revId": "542ef921e317e89391b1dcf5f81294ae450a2bd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
