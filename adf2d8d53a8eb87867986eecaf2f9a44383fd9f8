@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_1f59abfe",
+        "filename": "plugins/com.cisco.yangide.ext.model.editor/src/main/java/com/cisco/yangide/ext/model/editor/editors/YangDiagramEditor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3576
+      },
+      "writtenOn": "2016-04-28T20:11:15Z",
+      "side": 1,
+      "message": "In general, we should replace any printlns with the provided logging facilities.  There are apparently \"log\" methods in each of the plugins, like \"YangCorePlugin.log()\", but I see that even Activator itself has a \"log()\" method, so this might as well use that also.",
+      "revId": "adf2d8d53a8eb87867986eecaf2f9a44383fd9f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
