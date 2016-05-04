@@ -36,5 +36,5 @@ Require-Bundle: org.eclipse.ui,
  com.cisco.yangide.yangparser;bundle-version="1.1.1",
  com.google.guava;bundle-version="15.0.0",
  org.junit
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
