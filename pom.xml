@@ -10,7 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.opendaylight.yangide</groupId>
-  <artifactId>com.cisco.yangide.parent</artifactId>
+  <artifactId>org.opendaylight.yangide.parent</artifactId>
   <version>1.1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>YANG IDE Parent</name>
@@ -28,22 +28,22 @@
 
   <modules>
     <!-- plugins -->
-    <module>plugins/com.cisco.yangide.yangparser</module>
-    <module>plugins/com.cisco.yangide.core</module>
-    <module>plugins/com.cisco.yangide.ui</module>
-    <module>plugins/com.cisco.yangide.editor</module>
-    <module>plugins/com.cisco.yangide.m2e.yang</module>
+    <module>plugins/org.opendaylight.yangide.yangparser</module>
+    <module>plugins/org.opendaylight.yangide.core</module>
+    <module>plugins/org.opendaylight.yangide.ui</module>
+    <module>plugins/org.opendaylight.yangide.editor</module>
+    <module>plugins/org.opendaylight.yangide.m2e.yang</module>
     <!-- ext plugins -->
-    <module>plugins/com.cisco.yangide.ext.refactoring</module>
-    <module>plugins/com.cisco.yangide.ext.model</module>
-    <module>plugins/com.cisco.yangide.ext.model.editor</module>
+    <module>plugins/org.opendaylight.yangide.ext.refactoring</module>
+    <module>plugins/org.opendaylight.yangide.ext.model</module>
+    <module>plugins/org.opendaylight.yangide.ext.model.editor</module>
     <!-- features -->
-    <module>features/com.cisco.yangide.m2e.yang.feature</module>
-    <module>features/com.cisco.yangide.feature</module>
+    <module>features/org.opendaylight.yangide.m2e.yang.feature</module>
+    <module>features/org.opendaylight.yangide.feature</module>
     <!-- tests -->
 <!--
-    <module>plugins/com.cisco.yangide.m2e.yang.tests</module>
-    <module>plugins/com.cisco.yangide.core.tests</module>
+    <module>plugins/org.opendaylight.yangide.m2e.yang.tests</module>
+    <module>plugins/org.opendaylight.yangide.core.tests</module>
 -->
     <!-- other -->
     <module>product/target-platform</module>
@@ -125,7 +125,7 @@
           <target>
             <artifact>
               <groupId>org.opendaylight.yangide</groupId>
-              <artifactId>com.cisco.yangide.target-platform</artifactId>
+              <artifactId>org.opendaylight.yangide.target-platform</artifactId>
               <version>1.1.1-SNAPSHOT</version>
             </artifact>
           </target>

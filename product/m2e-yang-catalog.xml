@@ -12,9 +12,9 @@
       <provider>Cisco Systems, Inc.</provider>
       <p2>
         <repositoryUrl>@REPO_URL@</repositoryUrl>
-        <iuId>com.cisco.yangide.m2e.yang.feature.group</iuId>
+        <iuId>org.opendaylight.yangide.m2e.yang.feature.group</iuId>
         <lifecycleMappingIU>
-          <iuId>com.cisco.yangide.m2e.yang</iuId>
+          <iuId>org.opendaylight.yangide.m2e.yang</iuId>
         </lifecycleMappingIU>
       </p2>
       <overview>
