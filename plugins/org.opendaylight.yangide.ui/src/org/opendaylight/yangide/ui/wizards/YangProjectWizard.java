@@ -259,14 +259,10 @@ public class YangProjectWizard extends MavenProjectWizard {
 
         plugin.addExecution(pluginExecution);
         model.getBuild().addPlugin(plugin);
-        model.addPluginRepository(createRepoParameter("opendaylight-release",
-                "http://nexus.opendaylight.org/content/repositories/opendaylight.release/"));
-        model.addPluginRepository(createRepoParameter("opendaylight-snapshot",
-                "http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/"));
-        model.addRepository(createRepoParameter("opendaylight-release",
-                "http://nexus.opendaylight.org/content/repositories/opendaylight.release/"));
-        model.addRepository(createRepoParameter("opendaylight-snapshot",
-                "http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/"));
+        model.addPluginRepository(createRepoParameter("opendaylight-release", odlReleaseUrl));
+        model.addPluginRepository(createRepoParameter("opendaylight-snapshot", odlSnapshotUrl));
+        model.addRepository(createRepoParameter("opendaylight-release", odlReleaseUrl));
+        model.addRepository(createRepoParameter("opendaylight-snapshot", odlSnapshotUrl));
 
         model.getProperties().put("maven.compiler.source", "1.8");
         model.getProperties().put("maven.compiler.target", "1.8");
