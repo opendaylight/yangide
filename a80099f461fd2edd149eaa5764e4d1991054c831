@@ -16,6 +16,24 @@
       "revId": "a80099f461fd2edd149eaa5764e4d1991054c831",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d34efcc0",
+        "filename": "plugins/org.opendaylight.yangide.ui/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2016-05-05T23:29:24Z",
+      "side": 0,
+      "message": "Ah I had not realized you were using them for resource filtering. I just ran a `find . -name pom.xml | xargs grep odl_release_url` and didn\u0027t see it match anywhere else. I\u0027ll add it back.",
+      "parentUuid": "fa57193c_f33180a3",
+      "revId": "a80099f461fd2edd149eaa5764e4d1991054c831",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
