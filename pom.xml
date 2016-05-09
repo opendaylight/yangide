@@ -41,10 +41,8 @@
     <module>features/org.opendaylight.yangide.m2e.yang.feature</module>
     <module>features/org.opendaylight.yangide.feature</module>
     <!-- tests -->
-<!--
     <module>plugins/org.opendaylight.yangide.m2e.yang.tests</module>
     <module>plugins/org.opendaylight.yangide.core.tests</module>
--->
     <!-- other -->
     <module>product/target-platform</module>
     <module>product/update-site</module>
