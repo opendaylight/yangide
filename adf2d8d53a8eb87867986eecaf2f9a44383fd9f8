@@ -16,6 +16,24 @@
       "revId": "adf2d8d53a8eb87867986eecaf2f9a44383fd9f8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_3013e367",
+        "filename": "plugins/com.cisco.yangide.ext.model.editor/src/main/java/com/cisco/yangide/ext/model/editor/editors/YangDiagramEditor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5867
+      },
+      "writtenOn": "2016-05-10T13:55:01Z",
+      "side": 1,
+      "message": "I just had a look at this; but the problem is that Activator.log goes through Eclipse IStatus which has only ERROR and INFO but no DEBUG, so AFAIK this would lead to a lot of info level entries in the Error Log - I don\u0027t think one would want that.",
+      "parentUuid": "fa57193c_1f59abfe",
+      "revId": "adf2d8d53a8eb87867986eecaf2f9a44383fd9f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
