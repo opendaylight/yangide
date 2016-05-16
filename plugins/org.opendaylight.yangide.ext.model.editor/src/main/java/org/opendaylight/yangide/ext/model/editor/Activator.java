@@ -104,4 +104,14 @@ public class Activator extends AbstractUIPlugin {
     public static void log(IStatus status) {
         getDefault().getLog().log(status);
     }
+    
+    /**
+     * Reports log to Error Log view.
+     *
+     * @param statusErrorID plugin related error ID
+     * @param message error message
+     */
+    public static void log(int statusErrorID, String message) {
+        log(new Status(statusErrorID, PLUGIN_ID, message));
+    }
 }

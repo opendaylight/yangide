@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
@@ -131,13 +132,7 @@ public class IndexManager extends JobManager {
         if (this.db != null) {
             this.db.close();
         }
-        File[] files = indexFile.getParentFile().listFiles(new FilenameFilter() {
-
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.startsWith("index") && (cleanAll || !name.startsWith("index_" + INDEX_VERSION));
-            }
-        });
+        File[] files = indexFile.getParentFile().listFiles((FilenameFilter) (dir, name) -> name.startsWith("index") && (cleanAll || !name.startsWith("index_" + INDEX_VERSION)));
         if (files != null) {
             for (File file : files) {
                 file.delete();
@@ -175,7 +170,7 @@ public class IndexManager extends JobManager {
         Iterable<Long> it = Fun.filter(idxResources, file.getProject().getName(), file.getFullPath().toString());
         for (Long modStamp : it) {
             if (modStamp == file.getModificationStamp()) {
-                System.err.println("[x] " + file);
+                YangCorePlugin.log(IStatus.INFO, "[x] " + file);
                 return;
             }
         }
@@ -191,7 +186,7 @@ public class IndexManager extends JobManager {
         Iterable<Long> it = Fun.filter(idxResources, project.getName(), file.toString());
         for (Long modStamp : it) {
             if (modStamp == file.toFile().lastModified()) {
-                System.err.println("[x] " + file);
+                YangCorePlugin.log(IStatus.INFO, "[x] " + file);
                 return;
             }
         }
@@ -268,15 +263,14 @@ public class IndexManager extends JobManager {
     }
 
     public synchronized void addElementIndexInfo(ElementIndexInfo info) {
-        System.err.println("[I] " + info.getModule() + "@" + info.getRevision() + " - " + info.getName() + " - "
-                + info.getType());
-        idxKeywords.add(Fun.t6(info.getModule(), info.getRevision(), info.getName(), info.getType(), info.getPath(),
-                info));
+        YangCorePlugin.log(IStatus.INFO,
+                "[I] " + info.getModule() + "@" + info.getRevision() + " - " + info.getName() + " - " + info.getType());
+        idxKeywords.add(Fun.t6(info.getModule(), info.getRevision(), info.getName(), info.getType(), info.getPath(), info));
     }
 
     public synchronized void addElementIndexReferenceInfo(ElementIndexReferenceInfo info) {
-        System.err.println("[IR] " + info.getReference() + " : " + info.getType() + " - " + info.getProject() + "@"
-                + info.getPath());
+        YangCorePlugin.log(IStatus.INFO,
+                "[IR] " + info.getReference() + " : " + info.getType() + " - " + info.getProject() + "@" + info.getPath());
         idxReferences.add(Fun.t4(info.getReference(), info.getType(), info.getPath(), info));
     }
 
@@ -393,11 +387,11 @@ public class IndexManager extends JobManager {
         }
 
         String  nameWithoutPrefix   = name;
-        int colonIndex  = nameWithoutPrefix != null ? nameWithoutPrefix.indexOf(':') : -1; 
+        int colonIndex  = nameWithoutPrefix != null ? nameWithoutPrefix.indexOf(':') : -1;
         if (colonIndex != -1) {
             nameWithoutPrefix   = nameWithoutPrefix.substring(colonIndex + 1);
         }
-        
+
         for (Tuple6<String, String, String, ElementIndexType, String, ElementIndexInfo> entry : idxKeywords) {
             if (module != null && module.length() > 0 && !module.equals(entry.a)) {
                 continue;
@@ -424,7 +418,7 @@ public class IndexManager extends JobManager {
             }
 
             if (infos == null) {
-                infos = new ArrayList<ElementIndexInfo>();
+                infos = new ArrayList<>();
             }
             infos.add(entry.f);
         }
@@ -450,7 +444,7 @@ public class IndexManager extends JobManager {
         }
 
         String  nameWithoutPrefix   = reference.getName();
-        int colonIndex  = nameWithoutPrefix != null ? nameWithoutPrefix.indexOf(':') : -1; 
+        int colonIndex  = nameWithoutPrefix != null ? nameWithoutPrefix.indexOf(':') : -1;
         if (colonIndex != -1) {
             nameWithoutPrefix   = nameWithoutPrefix.substring(colonIndex + 1);
         }
@@ -478,7 +472,7 @@ public class IndexManager extends JobManager {
             }
 
             if (infos == null) {
-                infos = new ArrayList<ElementIndexReferenceInfo>();
+                infos = new ArrayList<>();
             }
 
             if (!infos.contains(entry.d)) {
