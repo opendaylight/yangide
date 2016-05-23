@@ -69,9 +69,7 @@ public class YangDiagramEditor extends DiagramEditor {
 
         @Override
         public void nodeRemoved(Node node) {
-            if (Activator.getDefault().isDebugging()) {
-                Activator.log(IStatus.INFO, "Removed " + node);
-            }
+            Activator.log(IStatus.INFO, "Removed " + node);
             PictogramElement[] elements = getDiagramTypeProvider().getFeatureProvider()
                     .getAllPictogramElementsForBusinessObject(node);
             for (PictogramElement element : elements) {
@@ -84,9 +82,7 @@ public class YangDiagramEditor extends DiagramEditor {
 
         @Override
         public void nodeChanged(Node node, EObject object, Object newValue) {
-            if (Activator.getDefault().isDebugging()) {
-                Activator.log(IStatus.INFO, "Changed " + node);
-            }
+            Activator.log(IStatus.INFO, "Changed " + node);
             if (object instanceof EAttribute) {
                 PictogramElement pe = YangModelUIUtil.getBusinessObjectPropShape(
                         getDiagramTypeProvider().getFeatureProvider(), node, (EAttribute) object);
@@ -99,9 +95,7 @@ public class YangDiagramEditor extends DiagramEditor {
 
         @Override
         public void nodeAdded(Node parent, Node child, int position) {
-            if (Activator.getDefault().isDebugging()) {
-                Activator.log(IStatus.INFO, "Added " + child);
-            }
+            Activator.log(IStatus.INFO, "Added " + child);
             if (null == YangModelUIUtil.getBusinessObjectShape(getDiagramTypeProvider().getFeatureProvider(), child)) {
                 Point p = null;
                 if (parent instanceof Module) {

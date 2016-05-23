@@ -102,9 +102,13 @@ public class Activator extends AbstractUIPlugin {
      * @param status status
      */
     public static void log(IStatus status) {
+        if (!Activator.getDefault().isDebugging()
+                && (status.getSeverity() == IStatus.OK || status.getSeverity() == IStatus.INFO)) {
+            return;
+        }
         getDefault().getLog().log(status);
     }
-    
+
     /**
      * Reports log to Error Log view.
      *

@@ -109,6 +109,10 @@ public class YangCorePlugin extends Plugin {
      * @param status status
      */
     public static void log(IStatus status) {
+        if (!YangCorePlugin.getDefault().isDebugging()
+                && (status.getSeverity() == IStatus.OK || status.getSeverity() == IStatus.INFO)) {
+            return;
+        }
         getDefault().getLog().log(status);
     }
 
@@ -166,7 +170,7 @@ public class YangCorePlugin extends Plugin {
         IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
         return createYangFile(file);
     }
-    
+
     /**
      * @param resource
      */
