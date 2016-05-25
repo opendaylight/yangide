@@ -12,10 +12,10 @@ import java.util.Enumeration;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IStatus;
 import org.opendaylight.yangide.core.IOpenable;
-import org.opendaylight.yangide.core.YangCorePlugin;
 import org.opendaylight.yangide.core.model.YangElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Konstantin Zaitsev
@@ -23,8 +23,9 @@ import org.opendaylight.yangide.core.model.YangElement;
  */
 public class BufferManager {
 
+    private static final Logger log = LoggerFactory.getLogger(BufferManager.class);
+
     protected static BufferManager DEFAULT_BUFFER_MANAGER;
-    protected static boolean VERBOSE = false;
 
     /**
      * LRU cache of buffers. The key and value for an entry in the table is the identical buffer.
@@ -35,18 +36,15 @@ public class BufferManager {
      * Adds a buffer to the table of open buffers.
      */
     public void addBuffer(IBuffer buffer) {
-        if (VERBOSE) {
-            String owner = ((YangElement) buffer.getOwner()).toStringWithAncestors();
-            YangCorePlugin.log(IStatus.INFO, "Adding buffer for " + owner);
-        }
+        String owner = ((YangElement) buffer.getOwner()).toStringWithAncestors();
+        log.debug("Adding buffer for {}", owner);
         synchronized (this.openBuffers) {
             this.openBuffers.put(buffer.getOwner(), buffer);
         }
         // close buffers that were removed from the cache if space was needed
         this.openBuffers.closeBuffers();
-        if (VERBOSE) {
-            YangCorePlugin.log(IStatus.INFO, "-> Buffer cache filling ratio = " + NumberFormat.getInstance().format(this.openBuffers.fillingRatio()) + "%"); //$NON-NLS-1$//$NON-NLS-2$
-        }
+        log.debug("-> Buffer cache filling ratio = {}%",
+                NumberFormat.getInstance().format(this.openBuffers.fillingRatio()));
     }
 
     public static IBuffer createBuffer(IOpenable owner) {

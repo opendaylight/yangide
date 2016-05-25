@@ -18,7 +18,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
@@ -42,14 +41,18 @@ import org.opendaylight.yangide.core.dom.TypeDefinition;
 import org.opendaylight.yangide.core.dom.TypeReference;
 import org.opendaylight.yangide.core.dom.UsesNode;
 import org.opendaylight.yangide.core.model.YangProjectInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides functionality to index AST nodes and search item in index.
  *
  * @author Konstantin Zaitsev
- * date: Jun 25, 2014
+ * @since Jun 25, 2014
  */
 public class IndexManager extends JobManager {
+
+    private static final Logger log = LoggerFactory.getLogger(IndexManager.class);
 
     /**
      * Stores index version, it is required increment version on each major changes of indexing
@@ -170,7 +173,7 @@ public class IndexManager extends JobManager {
         Iterable<Long> it = Fun.filter(idxResources, file.getProject().getName(), file.getFullPath().toString());
         for (Long modStamp : it) {
             if (modStamp == file.getModificationStamp()) {
-                YangCorePlugin.log(IStatus.INFO, "[x] " + file);
+                log.debug("[x] {}", file);
                 return;
             }
         }
@@ -186,7 +189,7 @@ public class IndexManager extends JobManager {
         Iterable<Long> it = Fun.filter(idxResources, project.getName(), file.toString());
         for (Long modStamp : it) {
             if (modStamp == file.toFile().lastModified()) {
-                YangCorePlugin.log(IStatus.INFO, "[x] " + file);
+                log.debug("[x] {}", file);
                 return;
             }
         }
@@ -263,14 +266,12 @@ public class IndexManager extends JobManager {
     }
 
     public synchronized void addElementIndexInfo(ElementIndexInfo info) {
-        YangCorePlugin.log(IStatus.INFO,
-                "[I] " + info.getModule() + "@" + info.getRevision() + " - " + info.getName() + " - " + info.getType());
+        log.debug("[I] {}@{} - {} - {}", info.getModule(), info.getRevision(), info.getName(), info.getType());
         idxKeywords.add(Fun.t6(info.getModule(), info.getRevision(), info.getName(), info.getType(), info.getPath(), info));
     }
 
     public synchronized void addElementIndexReferenceInfo(ElementIndexReferenceInfo info) {
-        YangCorePlugin.log(IStatus.INFO,
-                "[IR] " + info.getReference() + " : " + info.getType() + " - " + info.getProject() + "@" + info.getPath());
+        log.debug("[IR] {} : {} - {}@{}", info.getReference(), info.getType(), info.getProject(), info.getPath());
         idxReferences.add(Fun.t4(info.getReference(), info.getType(), info.getPath(), info));
     }
 
