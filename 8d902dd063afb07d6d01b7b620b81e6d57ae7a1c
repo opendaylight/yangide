@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Michael Vorburger <vorburger@redhat.com>
+Code-Review+2: David M. Karr <davidmichaelkarr@gmail.com>
+Submitted-by: David M. Karr <davidmichaelkarr@gmail.com>
+Submitted-at: Thu, 26 May 2016 16:42:13 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/39259
+Project: yangide
+Branch: refs/heads/master
