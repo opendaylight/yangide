@@ -29,9 +29,9 @@
     <yangbinding_groupid>org.opendaylight.mdsal</yangbinding_groupid>
     <yangbinding_artifactid>yang-binding</yangbinding_artifactid>
     <yangbinding_version>0.9.0-SNAPSHOT</yangbinding_version>
-    <mavenplugin_groupid>org.opendaylight.yangtools</mavenplugin_groupid>
-    <mavenplugin_artifactid>yang-maven-plugin</mavenplugin_artifactid>
-    <mavenplugin_version>1.0.0-SNAPSHOT</mavenplugin_version>
+    <yangplugin_groupid>org.opendaylight.yangtools</yangplugin_groupid>
+    <yangplugin_artifactid>yang-maven-plugin</yangplugin_artifactid>
+    <yangplugin_version>1.0.0-SNAPSHOT</yangplugin_version>
     <codegen_groupid>org.opendaylight.mdsal</codegen_groupid>
     <codegen_artifactid>maven-sal-api-gen-plugin</codegen_artifactid>
     <codegen_version>0.9.0-SNAPSHOT</codegen_version>
@@ -39,6 +39,9 @@
     <codegen_outputdir>target/generated-sources/sal</codegen_outputdir>
     <odl_release_url>https://nexus.opendaylight.org/content/repositories/opendaylight.release/</odl_release_url>
     <odl_snapshot_url>https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/</odl_snapshot_url>
+    <bundleplugin_groupid>org.apache.felix</bundleplugin_groupid>
+    <bundleplugin_artifactid>maven-bundle-plugin</bundleplugin_artifactid>
+    <bundleplugin_version>2.4.0</bundleplugin_version>
   </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>

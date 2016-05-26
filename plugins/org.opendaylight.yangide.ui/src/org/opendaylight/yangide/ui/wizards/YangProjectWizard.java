@@ -61,26 +61,29 @@ public class YangProjectWizard extends MavenProjectWizard {
 
     private static Properties projectPom    = new Properties();
     
-    private static final String PROP_YANGBINDING_GROUPID    = "yangbinding_groupid";
-    private static final String PROP_YANGBINDING_ARTIFACTID = "yangbinding_artifactid";
-    private static final String PROP_YANGBINDING_VERSION    = "yangbinding_version";
-    private static final String PROP_MAVENPLUGIN_GROUPID    = "mavenplugin_groupid";
-    private static final String PROP_MAVENPLUGIN_ARTIFACTID = "mavenplugin_artifactid";
-    private static final String PROP_MAVENPLUGIN_VERSION    = "mavenplugin_version";
-    private static final String PROP_CODEGEN_GROUPID        = "codegen_groupid";
-    private static final String PROP_CODEGEN_ARTIFACTID     = "codegen_artifactid";
-    private static final String PROP_CODEGEN_VERSION        = "codegen_version";
-    private static final String PROP_CODEGEN_CLASSNAME      = "codegen_classname";
-    private static final String PROP_CODEGEN_OUTPUTDIR      = "codegen_outputdir";
-    private static final String PROP_ODL_RELEASE_URL        = "odl_release_url";
-    private static final String PROP_ODL_SNAPSHOT_URL       = "odl_snapshot_url";
+    private static final String PROP_YANGBINDING_GROUPID        = "yangbinding_groupid";
+    private static final String PROP_YANGBINDING_ARTIFACTID     = "yangbinding_artifactid";
+    private static final String PROP_YANGBINDING_VERSION        = "yangbinding_version";
+    private static final String PROP_YANGPLUGIN_GROUPID         = "yangplugin_groupid";
+    private static final String PROP_YANGPLUGIN_ARTIFACTID      = "yangplugin_artifactid";
+    private static final String PROP_YANGPLUGIN_VERSION         = "yangplugin_version";
+    private static final String PROP_CODEGEN_GROUPID            = "codegen_groupid";
+    private static final String PROP_CODEGEN_ARTIFACTID         = "codegen_artifactid";
+    private static final String PROP_CODEGEN_VERSION            = "codegen_version";
+    private static final String PROP_CODEGEN_CLASSNAME          = "codegen_classname";
+    private static final String PROP_CODEGEN_OUTPUTDIR          = "codegen_outputdir";
+    private static final String PROP_ODL_RELEASE_URL            = "odl_release_url";
+    private static final String PROP_ODL_SNAPSHOT_URL           = "odl_snapshot_url";
+    private static final String PROP_BUNDLEPLUGIN_GROUPID       = "bundleplugin_groupid";
+    private static final String PROP_BUNDLEPLUGIN_ARTIFACTID    = "bundleplugin_artifactid";
+    private static final String PROP_BUNDLEPLUGIN_VERSION       = "bundleplugin_version";
 
     static final String yangbindingGroupId;
     static final String yangbindingArtifactId;
     static final String yangbindingVersion;
-    static final String mavenpluginGroupId;
-    static final String mavenpluginArtifactId;
-    static final String mavenpluginVersion;
+    static final String yangpluginGroupId;
+    static final String yangpluginArtifactId;
+    static final String yangpluginVersion;
     static final String codegenGroupId;
     static final String codegenArtifactId;
     static final String codegenVersion;
@@ -88,10 +91,14 @@ public class YangProjectWizard extends MavenProjectWizard {
     static final String codegenOutputDir;
     static final String odlReleaseUrl;
     static final String odlSnapshotUrl;
+    static final String bundlepluginGroupId;
+    static final String bundlepluginArtifactId;
+    static final String bundlepluginVersion;
 
     static {
         try {
-            projectPom.load(YangProjectWizard.class.getClassLoader().getResourceAsStream("resources/projectpom.properties"));
+            projectPom.load(YangProjectWizard.class.getClassLoader()
+                    .getResourceAsStream("resources/projectpom.properties"));
         } catch (IOException e) {
             YangUIPlugin.log(e);
         }
@@ -100,9 +107,9 @@ public class YangProjectWizard extends MavenProjectWizard {
         yangbindingArtifactId   = projectPom.getProperty(PROP_YANGBINDING_ARTIFACTID);
         yangbindingVersion      = projectPom.getProperty(PROP_YANGBINDING_VERSION);
 
-        mavenpluginGroupId      = projectPom.getProperty(PROP_MAVENPLUGIN_GROUPID);
-        mavenpluginArtifactId   = projectPom.getProperty(PROP_MAVENPLUGIN_ARTIFACTID);
-        mavenpluginVersion      = projectPom.getProperty(PROP_MAVENPLUGIN_VERSION);
+        yangpluginGroupId      = projectPom.getProperty(PROP_YANGPLUGIN_GROUPID);
+        yangpluginArtifactId   = projectPom.getProperty(PROP_YANGPLUGIN_ARTIFACTID);
+        yangpluginVersion      = projectPom.getProperty(PROP_YANGPLUGIN_VERSION);
 
         codegenGroupId          = projectPom.getProperty(PROP_CODEGEN_GROUPID);
         codegenArtifactId       = projectPom.getProperty(PROP_CODEGEN_ARTIFACTID);
@@ -112,11 +119,12 @@ public class YangProjectWizard extends MavenProjectWizard {
 
         odlReleaseUrl           = projectPom.getProperty(PROP_ODL_RELEASE_URL);
         odlSnapshotUrl          = projectPom.getProperty(PROP_ODL_SNAPSHOT_URL);
+        
+        bundlepluginGroupId     = projectPom.getProperty(PROP_BUNDLEPLUGIN_GROUPID);
+        bundlepluginArtifactId  = projectPom.getProperty(PROP_BUNDLEPLUGIN_ARTIFACTID);
+        bundlepluginVersion     = projectPom.getProperty(PROP_BUNDLEPLUGIN_VERSION);
     }
 
-    /**
-     * Constructor.
-     */
     public YangProjectWizard() {
         super();
         setWindowTitle("New YANG Project");
@@ -156,7 +164,7 @@ public class YangProjectWizard extends MavenProjectWizard {
 
                     IFile pomFile = project.getFile("pom.xml");
                     Model model = MavenPlugin.getMavenModelManager().readMavenModel(pomFile);
-                    updateModel(model,generators, yangRoot);
+                    updateModel(model, generators, yangRoot);
 
                     pomFile.delete(true, new NullProgressMonitor());
                     MavenPlugin.getMavenModelManager().createMavenModel(pomFile, model);
@@ -223,13 +231,63 @@ public class YangProjectWizard extends MavenProjectWizard {
         }
     }
 
+    /**
+     * Updates the build model with required plugins and other properties.
+     * 
+     * @param model build model to update
+     * @param generators list of code generators
+     * @param yangRoot root directory to expect to find Yang models in
+     */
     public void updateModel(Model model, List<CodeGeneratorConfig> generators, String yangRoot) {
         // Model model = super.getModel();
         model.setBuild(new Build());
+        model.getBuild().addPlugin(configureYangplugin(generators, yangRoot));
+        model.getBuild().addPlugin(configureBundlePlugin());
+        
+        model.addPluginRepository(createRepoParameter("opendaylight-release", odlReleaseUrl));
+        model.addPluginRepository(createRepoParameter("opendaylight-snapshot", odlSnapshotUrl));
+        model.addRepository(createRepoParameter("opendaylight-release", odlReleaseUrl));
+        model.addRepository(createRepoParameter("opendaylight-snapshot", odlSnapshotUrl));
+
+        model.getProperties().put("maven.compiler.source", "1.8");
+        model.getProperties().put("maven.compiler.target", "1.8");
+
+        Dependency dependency2 = new Dependency();
+        dependency2.setGroupId(yangbindingGroupId);
+        dependency2.setArtifactId(yangbindingArtifactId);
+        dependency2.setVersion(yangbindingVersion);
+        dependency2.setType("jar");
+        model.addDependency(dependency2);
+    }
+
+    /**
+     * Configure the maven-bundle-plugin, which is used to recognize "bundle"-type artifacts, as opposed to
+     * "jar"-type artifacts.
+     * 
+     * @return plugin to add to model.
+     */
+    private Plugin configureBundlePlugin() {
         Plugin plugin = new Plugin();
-        plugin.setGroupId(mavenpluginGroupId);
-        plugin.setArtifactId(mavenpluginArtifactId);
-        plugin.setVersion(mavenpluginVersion);
+        plugin.setGroupId(bundlepluginGroupId);
+        plugin.setArtifactId(bundlepluginArtifactId);
+        plugin.setVersion(bundlepluginVersion);
+        plugin.setExtensions(true);
+        
+        return plugin;
+    }
+
+    /**
+     * Configure the yang-maven-plugin, which is used to process the Yang models and generate Java code.
+     * 
+     * @param generators code generators to generate code from Yang model
+     * @param yangRoot root directory where Yang models are expected to be found
+     * @return plugin to add to model
+     */
+    private Plugin configureYangplugin(List<CodeGeneratorConfig> generators, String yangRoot) {
+        Plugin plugin = new Plugin();
+        plugin.setGroupId(yangpluginGroupId);
+        plugin.setArtifactId(yangpluginArtifactId);
+        plugin.setVersion(yangpluginVersion);
 
         for (CodeGeneratorConfig genConf : generators) {
             Dependency dependency = new Dependency();
@@ -254,25 +312,12 @@ public class YangProjectWizard extends MavenProjectWizard {
         }
         config.addChild(createSingleParameter("yangFilesRootDir", yangRoot));
         config.addChild(codeGenerators);
+        // This is true to allow it to look for Yang models in Maven dependencies.
         config.addChild(createSingleParameter("inspectDependencies", "true"));
         pluginExecution.setConfiguration(config);
 
         plugin.addExecution(pluginExecution);
-        model.getBuild().addPlugin(plugin);
-        model.addPluginRepository(createRepoParameter("opendaylight-release", odlReleaseUrl));
-        model.addPluginRepository(createRepoParameter("opendaylight-snapshot", odlSnapshotUrl));
-        model.addRepository(createRepoParameter("opendaylight-release", odlReleaseUrl));
-        model.addRepository(createRepoParameter("opendaylight-snapshot", odlSnapshotUrl));
-
-        model.getProperties().put("maven.compiler.source", "1.8");
-        model.getProperties().put("maven.compiler.target", "1.8");
-
-        Dependency dependency2 = new Dependency();
-        dependency2.setGroupId(yangbindingGroupId);
-        dependency2.setArtifactId(yangbindingArtifactId);
-        dependency2.setVersion(yangbindingVersion);
-        dependency2.setType("jar");
-        model.addDependency(dependency2);
+        return plugin;
     }
 
     /**
@@ -289,15 +334,17 @@ public class YangProjectWizard extends MavenProjectWizard {
     }
 
     /**
+     * Creates and returns a Repository object with the specified name and url.
+     * 
      * @param name name
      * @param url url
      * @return repository configuration by name and url
      */
     private Repository createRepoParameter(String name, String url) {
-        Repository r = new Repository();
-        r.setId(name);
-        r.setName(name);
-        r.setUrl(url);
-        return r;
+        Repository repo = new Repository();
+        repo.setId(name);
+        repo.setName(name);
+        repo.setUrl(url);
+        return repo;
     }
 }
