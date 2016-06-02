@@ -47,7 +47,7 @@ public class HelpCompositionUtils {
      * @return a {@link String} containing the help  
      */
     public static String getNodeHelp(ASTNode node) {
-        if (node.getDescription() != null && node.getDescription().length() > 0) {
+        if (node != null && node.getDescription() != null && node.getDescription().length() > 0) {
             return getLocalInfo(node);
         }
         String info = getIndexedInfo(node);
