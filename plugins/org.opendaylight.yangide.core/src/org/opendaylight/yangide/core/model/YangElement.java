@@ -213,7 +213,17 @@ public abstract class YangElement implements IOpenable, IBufferChangedListener {
             if (status.getException() != null) {
                 throw new YangModelException(status.getException(), status.getCode());
             } else {
-                throw new YangModelException(status.getMessage());
+                // The message can often just be "does not exist", which is extraordinarily
+                // unhelpful, so add info about the resource in question.
+                StringBuilder   sb  = new StringBuilder(status.getMessage());
+                if (underlResource != null) {
+                    sb.append(": name[").append(underlResource.getName()).
+                        append("] fullpath[").append(underlResource.getFullPath()).append("]");
+                }
+                else {
+                    sb.append(": Underlying resource is null.");
+                }
+                throw new YangModelException(sb.toString());
             }
         }
 
