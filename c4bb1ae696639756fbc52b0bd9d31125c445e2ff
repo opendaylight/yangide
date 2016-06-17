@@ -16,6 +16,24 @@
       "revId": "c4bb1ae696639756fbc52b0bd9d31125c445e2ff",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_60dbed1b",
+        "filename": "plugins/com.cisco.yangide.ext.model.editor/src/main/java/com/cisco/yangide/ext/model/editor/ModuleApiProxy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5867
+      },
+      "writtenOn": "2016-06-17T00:29:54Z",
+      "side": 0,
+      "message": "sure, I\u0027ve put it back. FYI, in https://github.com/vorburger/opendaylight-eclipse-setup automatic dead code elimination is enabled, so I haven\u0027t actually done this myself intentionally, it\u0027s an Auto Save action (which, generally speaking, I think is a Good Thing).",
+      "parentUuid": "fa57193c_5f72037d",
+      "revId": "c4bb1ae696639756fbc52b0bd9d31125c445e2ff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
