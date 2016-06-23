@@ -17,9 +17,7 @@
 
 	<artifactId>org.opendaylight.yangide.ext.model.editor</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<properties>
-       <odl-version>1.0.0-SNAPSHOT</odl-version>
-	</properties>
+
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -27,7 +25,7 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-compiler-plugin</artifactId>
-				<version>0.24.0</version>
+                <version>${tycho-version}</version>
 				<configuration>
 					<excludes>
 						<exclude>**/*Test.java</exclude>
@@ -84,55 +82,55 @@
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>yang-model-api</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>yang-model-util</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>yang-parser-impl</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>yang-parser-api</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>concepts</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>util</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>object-cache-api</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>yang-model-export</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.opendaylight.yangtools</groupId>
 			<artifactId>yang-common</artifactId>
-			<version>${odl-version}</version>
+			<version>${yangtools.version}</version>
             <scope>test</scope>
 		</dependency>
         <dependency>

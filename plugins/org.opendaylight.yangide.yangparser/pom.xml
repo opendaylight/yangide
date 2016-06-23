@@ -25,9 +25,7 @@
   <artifactId>org.opendaylight.yangide.yangparser</artifactId>
   <packaging>eclipse-plugin</packaging>
   <version>1.1.1-SNAPSHOT</version>
-  <properties>
-    <odl-version>1.0.0-SNAPSHOT</odl-version>
-  </properties>
+
   <dependencies>
     <dependency>
         <groupId>junit</groupId>
@@ -90,74 +88,74 @@
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>yang-model-api</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>yang-model-api-${odl-version}.jar</destFileName>
+                                <destFileName>yang-model-api-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>yang-model-util</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>yang-model-util-${odl-version}.jar</destFileName>
+                                <destFileName>yang-model-util-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>yang-parser-impl</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>yang-parser-impl-${odl-version}.jar</destFileName>
+                                <destFileName>yang-parser-impl-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>yang-parser-api</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>yang-parser-api-${odl-version}.jar</destFileName>
+                                <destFileName>yang-parser-api-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>concepts</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>concepts-${odl-version}.jar</destFileName>
+                                <destFileName>concepts-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>util</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>util-${odl-version}.jar</destFileName>
+                                <destFileName>util-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>object-cache-api</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>object-cache-api-${odl-version}.jar</destFileName>
+                                <destFileName>object-cache-api-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>yang-model-export</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>yang-model-export-${odl-version}.jar</destFileName>
+                                <destFileName>yang-model-export-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.opendaylight.yangtools</groupId>
                                 <artifactId>yang-common</artifactId>
-                                <version>${odl-version}</version>
+                                <version>${yangtools.version}</version>
                                 <type>jar</type>
                                 <overWrite>true</overWrite>
-                                <destFileName>yang-common-${odl-version}.jar</destFileName>
+                                <destFileName>yang-common-${yangtools.version}.jar</destFileName>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>org.antlr</groupId>
