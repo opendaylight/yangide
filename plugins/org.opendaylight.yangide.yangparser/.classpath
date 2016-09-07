@@ -8,15 +8,15 @@
 	<classpathentry exported="true" kind="lib" path="libs/junit-4.12.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/mockito-all-1.10.19.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/assertj-core-3.4.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/concepts-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/object-cache-api-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/util-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/yang-common-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/yang-model-api-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/yang-model-export-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/yang-model-util-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/yang-parser-api-0.8.3-SNAPSHOT.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/yang-parser-impl-0.8.3-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/concepts-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/object-cache-api-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/util-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-common-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-model-api-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-model-export-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-model-util-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-parser-api-0.8.3-Beryllium-SR3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/yang-parser-impl-0.8.3-Beryllium-SR3.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/guava-18.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

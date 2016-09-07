@@ -28,13 +28,13 @@
   <properties>
     <yangbinding_groupid>org.opendaylight.mdsal</yangbinding_groupid>
     <yangbinding_artifactid>yang-binding</yangbinding_artifactid>
-    <yangbinding_version>0.8.3-SNAPSHOT</yangbinding_version>
+    <yangbinding_version>0.8.3-Beryllium-SR3</yangbinding_version>
     <yangplugin_groupid>org.opendaylight.yangtools</yangplugin_groupid>
     <yangplugin_artifactid>yang-maven-plugin</yangplugin_artifactid>
-    <yangplugin_version>0.8.3-SNAPSHOT</yangplugin_version>
+    <yangplugin_version>0.8.3-Beryllium-SR3</yangplugin_version>
     <codegen_groupid>org.opendaylight.mdsal</codegen_groupid>
     <codegen_artifactid>maven-sal-api-gen-plugin</codegen_artifactid>
-    <codegen_version>0.8.3-SNAPSHOT</codegen_version>
+    <codegen_version>0.8.3-Beryllium-SR3</codegen_version>
     <codegen_classname>org.opendaylight.yangtools.maven.sal.api.gen.plugin.CodeGeneratorImpl</codegen_classname>
     <codegen_outputdir>target/generated-sources/sal</codegen_outputdir>
     <odl_release_url>https://nexus.opendaylight.org/content/repositories/opendaylight.release/</odl_release_url>

@@ -18,7 +18,7 @@
 	<artifactId>org.opendaylight.yangide.ext.model.editor</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<properties>
-       <odl-version>0.8.3-SNAPSHOT</odl-version>
+       <odl-version>0.8.3-Beryllium-SR3</odl-version>
 	</properties>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
