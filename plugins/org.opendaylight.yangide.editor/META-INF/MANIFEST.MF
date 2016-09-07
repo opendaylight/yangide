@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Editor
 Bundle-SymbolicName: org.opendaylight.yangide.editor;singleton:=true
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.1
 Bundle-ClassPath: .
 Bundle-Activator: org.opendaylight.yangide.editor.YangEditorPlugin
 Bundle-Vendor: Cisco

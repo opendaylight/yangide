@@ -12,7 +12,7 @@
 <feature
       id="org.opendaylight.yangide.m2e.yang.feature"
       label="%featureName"
-      version="1.1.1.qualifier"
+      version="1.1.1"
       provider-name="%providerName"
       plugin="org.opendaylight.yangide.m2e.yang">
 
@@ -30,7 +30,7 @@
 
    <requires>
       <import feature="org.eclipse.m2e.feature" version="1.5.0.20140606-0033"/>
-      <import feature="org.opendaylight.yangide.feature" version="1.1.1.qualifier"/>
+      <import feature="org.opendaylight.yangide.feature" version="1.1.1"/>
    </requires>
 
    <plugin

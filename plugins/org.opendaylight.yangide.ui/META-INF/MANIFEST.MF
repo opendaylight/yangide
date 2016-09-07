@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.opendaylight.yangide.ui
 Bundle-SymbolicName: org.opendaylight.yangide.ui;singleton:=true
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.1
 Bundle-Activator: org.opendaylight.yangide.ui.YangUIPlugin
 Bundle-Vendor: Cisco Systems, Inc.
 Bundle-Localization: plugin
