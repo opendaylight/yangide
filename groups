@@ -2,4 +2,3 @@
 #
 2e4dd1962de9ee015903b4d6674030843f41d6a9                               	saml/odl-gerrit-yangide-committers
 c9025ab9ddc1e3171919e085449f22c54f8f7b54                               	GitHub Replication
-ldap:cn=odl-gerrit-yangide-committers,ou=Groups,dc=freestandards,dc=org	ldap/odl-gerrit-yangide-committers
